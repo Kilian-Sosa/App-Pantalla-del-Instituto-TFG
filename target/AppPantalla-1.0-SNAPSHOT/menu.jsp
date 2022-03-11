@@ -27,64 +27,62 @@
         %>
         
         <div class="container-fluid">
-            
             <!-- ENCABEZADO -->
             <div class="row">
                 <div class="py-3 col-12">
                     <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="150" height="150">
                 </div>
                 
-                <div class="py-3 col-12">
+                <div class="col-12">
                     <p class="fs-1 text-center font-monospace">Menú Principal</p>
                 </div>
             </div>
             
             <!-- MENÚ -->
             <div class="row">
-                
                 <!-- BOTÓN USUARIOS -->
-                <div class="dropdown py-4">
-                    <div class="col-3 mx-auto d-grid gap-2">
-                        <button type="button" class="btn btn-primary">Modificar Usuarios</button>
-                        <div class="dropdown-content">
-                            <a href="#">Crear</a>
-                            <a href="#">Editar</a>
-                            <a href="#">Borrar</a>
+                <div class="py-3 col-12">
+                    <form method="GET" action="usuarios.jsp">
+                        <div class="col-4 mx-auto d-grid gap-2">
+                            <input type="submit" value="Usuarios" class="btn btn-primary">
                         </div>
-                    </div>
+                    </form>
                 </div>
                 
-                <!-- BOTÓN ENTRADA --> 
-                <div class="dropdown py-4">
-                    <div class="col-3 mx-auto d-grid gap-2">
-                        <button type="button" class="btn btn-primary">Entradas</button>
-                        <div class="dropdown-content">
-                            <a href="noticias.jsp">Ver Noticias</a>
-                            <!-- <form method="GET" action="noticias.jsp">
-                                <input type="hidden" name="email" value=" //email%>">
-                                <input type="submit" value="Ver Noticias">
-                            </form> -->
-                            <a href="form_noticias.jsp">Añadir Noticias</a>
-                            <a href="form_noticias.jsp">Modificar Noticias</a>
-                            <a href="#">Festivos</a>
-                            <!--<a href="#">Matrícula</a>
-                            <a href="#">Fecha Señalada</a>-->
+                <!-- BOTÓN NOTICIAS --> 
+                <div class="py-3 col-12">
+                    <form method="GET" action="noticias.jsp">
+                        <div class="col-4 mx-auto d-grid gap-2">
+                            <input type="submit" value="Noticias" class="btn btn-primary">
                         </div>
-                    </div>
+                    </form>
+                </div>
+                
+                <!-- BOTÓN FESTIVOS --> 
+                <div class="py-3 col-12">
+                    <form method="GET" action="festivos.jsp">
+                        <div class="col-4 mx-auto d-grid gap-2">
+                            <input type="submit" value="Festivos" class="btn btn-primary">
+                        </div>
+                    </form>
                 </div>
                 
                 <!-- BOTÓN AUSENCIAS -->
-                <div class="dropdown py-4">
-                    <div class="col-3 mx-auto d-grid gap-2">
-                        <button type="button" class="btn btn-primary">Ausencias</button>
-                    </div>
+                <div class="py-3 col-12">
+                    <form method="GET" action="ausencias.jsp">
+                        <div class="col-4 mx-auto d-grid gap-2">
+                            <input type="submit" value="Ausencias" class="btn btn-primary">
+                        </div>
+                    </form>
                 </div>
                 
                 <!-- BOTÓN LOG -->
-                <div class="dropdown py-4">
-                    <div class="col-3 mx-auto d-grid gap-2">
-                        <button type="button" class="btn btn-primary">Log</button>
-                    </div>
+                <div class="py-3 col-12">
+                    <form method="GET" action="log.jsp">
+                        <div class="col-4 mx-auto d-grid gap-2">
+                            <input type="submit" value="Log" class="btn btn-primary">
+                        </div>
+                    </form>
                 </div>
                 
             </div>
@@ -92,7 +90,7 @@
             <!-- CERRAR SESIÓN -->
             <div class="row py-5">
                 <form method="GET" action="index.jsp">
-                    <div class="col-3 mx-auto d-grid gap-2">
+                    <div class="col-2 mx-auto d-grid gap-2">
                         <input type="submit" value="Cerrar Sesión" class="btn btn-secondary">
                     </div>
                 </form>

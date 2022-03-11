@@ -43,16 +43,11 @@
             ControlNewsManager manager = new ControlNewsManager();
             
             if(action != null){
-                if(action.compareTo("insert") == 0){%>
-                    <div class="py-3 col-12">
-                        <p class="fs-1 text-center font-monospace">Añadir Noticia</p>
-                    </div>
-                <%}
-                else if(action.compareTo("edit") == 0){%>
-                    <div class="py-3 col-12">
-                        <p class="fs-1 text-center font-monospace">Editar Noticia</p>
-                    </div>
-                <%}else if(action.compareTo("Añadir") == 0){
+                if(action.compareTo("insert") == 0) { %>
+                    <p class="fs-1 text-center font-monospace">Añadir Noticia</p>
+                <% } else if(action.compareTo("edit") == 0) { %>
+                    <p class="fs-1 text-center font-monospace">Editar Noticia</p>
+                <%} else if(action.compareTo("Añadir") == 0) {
                     if(request.getParameter("title") != null) title = request.getParameter("title");
                     if(request.getParameter("email") != null) description = request.getParameter("email");
                     if(request.getParameter("dateinit") != null) dateInit = request.getParameter("dateinit");
@@ -63,11 +58,11 @@
                     <div class="py-3 col-12">
                         <p class="fs-1 text-center font-monospace">Añadir Noticia</p>
                     </div>
-                    <%if(title.isBlank()){%>
+                    <% if(title.isBlank()) { %>
                         <div class="alert alert-danger" role="alert">El título no puede estar en blanco</div>
-                    <%}else if(dateInit.isBlank() || dateFin.isBlank()){%>
+                    <% } else if(dateInit.isBlank() || dateFin.isBlank()) { %>
                         <div class="alert alert-danger" role="alert">Escoja las fechas</div>
-                    <%}else{
+                    <% } else {
                         manager.setTitle(title);
                         manager.setDescription(description);
                         manager.setDateInit(dateInit);
@@ -76,13 +71,13 @@
 
                         if(!url_Image.isBlank()) manager.setUrl_Image(url_Image);%>
                             <div class="alert alert-success" role="alert">Se ha añadido la noticia correctamente</div>
-                        <%}
-                }else if(action.compareTo("Editar") == 0){%>
+                    <% }
+                } else if(action.compareTo("Editar") == 0) { %>
                     <div class="py-3 col-12">
                         <p class="fs-1 text-center font-monospace">Editar Noticia</p>
                     </div>
-                <%}
-            }%>
+                <% }
+            } %>
             </div>
 
             <!-- FORMULARIO -->
@@ -151,13 +146,14 @@
                         <input type="submit" value="<%= action%>" class="btn btn-primary">
                     </div>    
                 </form>
-                    <form method="GET" action="menu.jsp">
+                    
+                <form method="GET" action="noticias.jsp">
                     <div class="col-3 mx-auto d-grid gap-2">
-                            <input type="submit" value="Volver a las Noticias" class="btn btn-primary">
-                        </div>
-                    </form>
+                        <input type="submit" value="Volver a Noticias" class="btn btn-secondary">
+                    </div>
+                </form>
             </div>
-
+                    
         </div> <!-- CIERRE CONTAINER -->
     </body>
 </html>

@@ -50,35 +50,43 @@
         
         <div class="container-fluid">
             
-            <!-- ENCABEZADO -->
+            <!-- LOGO -->
             <div class="row">
-                <div class="py-3 col-12">
+                <div class="py-3">
                     <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="150" height="150">
                 </div>
-                
-                <div class="py-3 col-12">
+                <div class="py-3">
                     <h1 class="fs-1 font-monospace text-center">Iniciar Sesión</h1>
                 </div>
             </div>
             
-            <!-- FORM -->
-            <div class="form-group row">
-                <form method="GET" action="index.jsp">
-                    <div class="col-6 mx-auto my-4">
-                        <input type="text" class="form-control fs-5 text-center" name="email" placeholder="Correo" value="<%= email%>">
-                    </div>
+            <div class="row py-3 col-10 justify-content-evenly mx-auto recuadro-login">
+                <div class="col-2">
+                    <img src="https://images.genial.ly/genially/layouts/9dfa6849-4c71-4fca-83c6-5fa401b169a5.png" width="300" height="300">
+                </div>
+                
+                <div class="col-8 align-self-center">
+                    <!-- FORM -->
+                    <!--<h1 class="fs-1 font-monospace text-center">Iniciar Sesión</h1>-->
+                    <div class="row form-group">
+                        <form method="GET" action="index.jsp">
+                            <div class="col-10 mx-auto my-4">
+                                <input type="text" class="form-control fs-5 text-center" name="email" placeholder="Correo" value="<%= email%>">
+                            </div>
 
-                    <div class="col-6 mx-auto my-4">
-                        <input type="password" class="form-control fs-5 text-center" name="password" placeholder="Contraseña" value="<%= password%>">
+                            <div class="col-10 mx-auto my-4">
+                                <input type="password" class="form-control fs-5 text-center" name="password" placeholder="Contraseña" value="<%= password%>">
+                            </div>
+
+                            <!-- BUTTON LOGIN -->
+                            <div class="py-3 col-3 mx-auto d-grid gap-2">
+                                <input type="hidden" name="action" value="login">
+                                <input type="submit" value="Iniciar Sesión" class="btn btn-primary">
+                            </div>     
+                        </form>
                     </div>
-                    
-                    <!-- BUTTON LOGIN -->
-                    <div class="py-3 col-3 mx-auto d-grid gap-2">
-                        <input type="hidden" name="action" value="login">
-                        <input type="submit" value="Iniciar Sesión" class="btn btn-primary">
-                    </div>     
-                </form>
-            </div>
+                </div>
+            </div> 
             
         </div> <!-- END CONTAINER -->
                             

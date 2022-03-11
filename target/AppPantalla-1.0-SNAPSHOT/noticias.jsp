@@ -40,104 +40,81 @@
                     <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="150" height="150">
                 </div>
 
-                <div class="py-3 col-12">
+                <div class="col-12">
                     <p class="fs-1 text-center font-monospace">Noticias</p>
                 </div>
             </div>
-        
-            <!-- NOTICIAS -->
-            <div class="row justify-content-evenly">
-                <div class="recuadro-noticia col-8 align-self-center">
-                    <p class="fs-4 text-center font-monospace border-bottom"><%= list.get(0).getTitle()%></p>
-                    <% if(!list.get(0).getUrl_Image().equals("")){%> 
-                        <img src= <%= list.get(0).getUrl_Image()%> align=left  hspace=15 vspace=15>  
-                       <%}%> 
-                    <p class="text-justify">
-                        <%= list.get(0).getDescription()%>
-                    </p>
-                </div>
-                
-                <div class="recuadro-noticia col-3 align-self-center">
-                    <p class="fs-4 text-center font-monospace border-bottom">Más Noticias:</p>
-                    <table class="table align-middle">
+            
+            <!-- TABLA NOTICIAS -->
+            <div class="row col-11 mx-auto">
+                <div class="col-12">
+                    <table class="table table-striped align-middle">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>ID</th>
+                                <th>URL</th>
+                                <th>Titulo</th>
+                                <th>Cuerpo</th>
+                                <th>Autor</th>
+                                <th>Dia Inicio</th>
+                                <th>Dia Fin</th>
+                                <th>Tipo</th>
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>                         
                             <tr>
-                                <td>Titulo de noticias tochas</td>
+                                <th>0</th>
+                                <td>C:\</td>
+                                <td>Juan</td>
+                                <td>Juan</td>
+                                <td>Jose Ignacio</td>
+                                <td>11/03/2022</td>
+                                <td>11/03/2022</td>
+                                <td>Tipo</td>
                                 <td>
-                                    <div class="dropdown py-4">
-                                        <button type="button" class="btn btn-light"><img src="https://cdn.discordapp.com/attachments/655942507955224587/948218645883027456/gear-solid.png" width="20" height="20"/></button>
-                                        <div class="dropdown-content-noticias">
-                                            <a href="#">Editar</a>
-                                            <a href="#">Borrar</a>
+                                    <!-- BOTÓN EDITAR -->
+                                    <form method="GET" action="form_noticias.jsp">
+                                        <div class="d-grid gap-2">
+                                            <input type="hidden" name="action" value="edit">
+                                            <input type="submit" value="Editar" class="btn btn-primary">
                                         </div>
-                                    </div>
+                                    </form>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Titulo de noticias pochas</td>
                                 <td>
-                                    <div class="dropdown py-4">
-                                        <button type="button" class="btn btn-light"><img src="https://cdn.discordapp.com/attachments/655942507955224587/948218645883027456/gear-solid.png" width="20" height="20"/></button>
-                                        <div class="dropdown-content-noticias">
-                                            <a href="#">Editar</a>
-                                            <a href="#">Borrar</a>
+                                    <!-- BOTÓN BORRAR -->
+                                    <form method="GET" action="noticias.jsp">
+                                        <div class="d-grid gap-2">
+                                            <input type="hidden" name="accion" value="elim">
+                                            <input type="submit" value="Eliminar" class="btn btn-secondary">
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Titulo de noticias guapas</td>
-                                <td>
-                                    <div class="dropdown py-4">
-                                        <button type="button" class="btn btn-light"><img src="https://cdn.discordapp.com/attachments/655942507955224587/948218645883027456/gear-solid.png" width="20" height="20"/></button>
-                                        <div class="dropdown-content-noticias">
-                                            <a href="#">Editar</a>
-                                            <a href="#">Borrar</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Esto no es un título</td>
-                                <td>
-                                    <div class="dropdown py-4">
-                                        <button type="button" class="btn btn-light"><img src="https://cdn.discordapp.com/attachments/655942507955224587/948218645883027456/gear-solid.png" width="20" height="20"/></button>
-                                        <div class="dropdown-content-noticias">
-                                            <a href="#">Editar</a>
-                                            <a href="#">Borrar</a>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
-            <!-- CREAR -->
-            <div class="row py-5">
-                <form method="GET" action="form_noticias.jsp">
-                    <div class="col-3 mx-auto d-grid gap-2">
-                        <input type="hidden" name="action" value="insert">
-                        <input type="submit" action="insert" value="Crear Noticia" class="btn btn-primary">
-                        <input type="hidden" name="action" value="edit">
-                        <input type="submit" action="edit" value="Modificar Noticia" class="btn btn-primary">
-                    </div>
-                </form>
-            </div>
-            
-            <div class="row py-1">
-                <form method="GET" action="menu.jsp">
-                    <div class="col-3 mx-auto d-grid gap-2">
-                        <input type="submit" value="Volver Atrás" class="btn btn-primary">
-                    </div>
-                </form>
+                    
+            <div class="row py-5 col-11 mx-auto justify-content-evenly">
+                <!-- BOTÓN VOLVER -->
+                <div class="col-3">
+                    <form method="GET" action="menu.jsp">
+                        <div class="d-grid gap-2">
+                            <input type="submit" value="Volver Atrás" class="btn btn-secondary">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- BOTÓN INSERTAR -->
+                <div class="col-9">
+                    <form method="GET" action="form_noticias.jsp">
+                        <div class="d-grid gap-2">
+                            <input type="hidden" name="action" value="insert">
+                            <input type="submit" action="insert" value="Insertar" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
             </div>
             
         </div> <!-- CIERRE CONTAINER -->

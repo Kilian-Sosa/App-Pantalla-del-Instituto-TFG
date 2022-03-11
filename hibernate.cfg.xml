@@ -4,7 +4,7 @@
 
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://81.43.168.26/chromium69</property>
+		<property name="connection.url">jdbc:mysql://83.46.222.35/chromium69</property>
 		<property name="connection.username">chromium69</property>
 		<property name="connection.password">root</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
