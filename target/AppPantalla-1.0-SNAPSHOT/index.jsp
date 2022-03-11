@@ -42,7 +42,11 @@
                                 <%}else if(cont == -1){%>    
                                     <div class="alert alert-danger" role="alert">Contraseña incorrecta</div>
                                 <%}else{
-                                    response.sendRedirect("http://localhost:8080/Web/menu.jsp");
+                                    if(manager.getRol().equals("profesor")){
+                                        response.sendRedirect("http://localhost:8080/Web/menu_profesores.jsp");
+                                    }else{
+                                        response.sendRedirect("http://localhost:8080/Web/menu.jsp");
+                                    }
                                 }
                             }
                 }

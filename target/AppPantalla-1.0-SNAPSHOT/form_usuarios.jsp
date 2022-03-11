@@ -30,15 +30,15 @@
                 <div class="col-12">
                     <h1 class="fs-1 text-center font-monospace">
                     <%
-                        String accion = request.getParameter("accion");
+                        String action = request.getParameter("action");
                         String valor = "";
                         String id = "", nombre = "", correo = "", contraseña = "", rol = "", ausencia = "";
-                        if(accion != null) {
-                            if(accion.compareTo("insert") == 0){
+                        if(action != null) {
+                            if(action.compareTo("insert") == 0){
                                 valor = "Insertar";
                                 out.print(valor);
                                 
-                            } else if(accion.compareTo("edit") == 0){
+                            } else if(action.compareTo("edit") == 0){
                                 valor = "Editar";
                                 /*id = request.getParameter("id");
                                 nombre = request.getParameter("nombre");
@@ -60,22 +60,22 @@
                 <div class="py-3 col-8 mx-auto">
                     <form method="GET" action="index.jsp">
                         <input type="hidden" name="id" value="<%= id%>">
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="nombre" class="form-label">Nombre del Usuario</label>
                             <input type="text" class="form-control" name="nombre" max="20" value="<%= nombre%>">
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="correo" class="form-label">Correo del Usuario</label>
                             <input type="text" class="form-control" name="correo" max="80" value="<%= correo%>">
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="contraseña" class="form-label">Contraseña del Usuario</label>
                             <input type="text" class="form-control" name="direccion" max="20" value="<%= contraseña%>">
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="rol" class="form-label">Rol del Usuario</label>
                             <select class="form-select" name="nota" aria-label="Default select example">
                                 <option selected value=<%= rol%>><%= rol%></option>
@@ -84,13 +84,8 @@
                                 <option value="profesor">Profesor</option>
                             </select>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="ausencia" class="form-label">Ausencia</label>
-                            <input type="text" class="form-control" name="ausencia" value="<%= ausencia%>">
-                        </div>
                         
-                        <input name="accion" type="hidden" value="<%= accion%>">
+                        <input name="accion" type="hidden" value="<%= action%>">
                         <div class="col-8 mx-auto d-grid gap-2">
                             <input class="btn btn-primary" type="submit" value="<%= valor%>">
                         </div>
@@ -100,7 +95,7 @@
             
             <!-- BOTÓN VOLVER -->
             <div class="row">
-                <form method="GET" action="menu.jsp">
+                <form method="GET" action="usuarios.jsp">
                     <div class="col-3 mx-auto d-grid gap-2">
                         <input type="submit" value="Volver Atrás" class="btn btn-secondary">
                     </div>

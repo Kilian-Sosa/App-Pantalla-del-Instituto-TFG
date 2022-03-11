@@ -46,4 +46,10 @@ public class LogInManager{
         System.out.println("El email no figura en la base de datos");
         return 0;
     }
+    
+    public String getRol(){
+        Email emailObject = new Email(email, password);
+        LogIn login = new LogIn(emailObject);
+        return login.getRol();
+    }
 }

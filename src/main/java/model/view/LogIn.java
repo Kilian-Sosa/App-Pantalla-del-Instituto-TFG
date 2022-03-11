@@ -82,4 +82,28 @@ public class LogIn {
         }
         return false;
     }
+    
+    public String getRol(){
+        /*
+        *   Gets the password of the record in the DB
+        *
+        *   @returns Returns the password
+        */
+        
+        try{
+            session = factory.openSession();
+            session.beginTransaction();
+            
+            String hql = "from User "  + 
+             "WHERE contraseña = '" + email.getPassword() + "'";
+            ArrayList<User> arraylist = (ArrayList) session.createQuery(hql).getResultList();
+            
+            session.close();
+            if(arraylist == null || arraylist.isEmpty()) return "Contraseña no encontrada";
+            return arraylist.get(0).getRol();
+        }catch(RollbackException e){
+            System.out.println("Se ha producido un error al recoger el id: " + e);
+            return null;
+        }
+    }
 }

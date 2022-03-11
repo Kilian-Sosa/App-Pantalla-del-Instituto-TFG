@@ -102,7 +102,7 @@
                     <form method="GET" action="form_usuarios.jsp">
                         <div class="d-grid gap-2">
                             <input type="hidden" name="action" value="insert">
-                            <input type="submit" value="Insertar" class="btn btn-primary">
+                            <input type="submit" action="insert" value="Insertar" class="btn btn-primary">
                         </div>
                     </form>
                 </div>

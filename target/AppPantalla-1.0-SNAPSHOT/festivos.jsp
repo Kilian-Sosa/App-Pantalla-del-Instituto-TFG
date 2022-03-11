@@ -54,7 +54,7 @@
                                 <td>11/03/2022</td>
                                 <td>
                                     <!-- BOTÓN EDITAR -->
-                                    <form method="GET" action="form_noticias.jsp">
+                                    <form method="GET" action="form_festivos.jsp">
                                         <div class="d-grid gap-2">
                                             <input type="hidden" name="action" value="edit">
                                             <input type="submit" value="Editar" class="btn btn-primary">
@@ -63,7 +63,7 @@
                                 </td>
                                 <td>
                                     <!-- BOTÓN BORRAR -->
-                                    <form method="GET" action="noticias.jsp">
+                                    <form method="GET" action="festivos.jsp">
                                         <div class="d-grid gap-2">
                                             <input type="hidden" name="accion" value="elim">
                                             <input type="submit" value="Eliminar" class="btn btn-secondary">

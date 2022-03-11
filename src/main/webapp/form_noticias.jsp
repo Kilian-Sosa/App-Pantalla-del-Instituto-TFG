@@ -43,9 +43,9 @@
             ControlNewsManager manager = new ControlNewsManager();
             
             if(action != null){
-                if(action.compareTo("insert") == 0) { %>
+                if(action.compareTo("insert") == 0) { action = "Insertar"; %>
                     <p class="fs-1 text-center font-monospace">Añadir Noticia</p>
-                <% } else if(action.compareTo("edit") == 0) { %>
+                <% } else if(action.compareTo("edit") == 0) { action = "Editar"; %>
                     <p class="fs-1 text-center font-monospace">Editar Noticia</p>
                 <%} else if(action.compareTo("Añadir") == 0) {
                     if(request.getParameter("title") != null) title = request.getParameter("title");
@@ -55,7 +55,7 @@
                     if(request.getParameter("url_image") != null) url_Image = request.getParameter("url_image");
                     %>
                     
-                    <div class="py-3 col-12">
+                    <div class="col-12">
                         <p class="fs-1 text-center font-monospace">Añadir Noticia</p>
                     </div>
                     <% if(title.isBlank()) { %>
@@ -73,7 +73,7 @@
                             <div class="alert alert-success" role="alert">Se ha añadido la noticia correctamente</div>
                     <% }
                 } else if(action.compareTo("Editar") == 0) { %>
-                    <div class="py-3 col-12">
+                    <div class="col-12">
                         <p class="fs-1 text-center font-monospace">Editar Noticia</p>
                     </div>
                 <% }
@@ -92,7 +92,7 @@
                     
                     <!-- CUERPO -->
                     <div class="py-3 col-8 mx-auto">
-                        <textarea rows="6" type="text" class="form-control fs-5 text-center text-justify" name="description" placeholder="Cuerpo Noticia"><%= description%></textarea>
+                        <textarea rows="3" type="text" class="form-control fs-5 text-center text-justify" name="description" placeholder="Cuerpo Noticia"><%= description%></textarea>
                     </div>
                     
                     <!-- IMAGEN -->
