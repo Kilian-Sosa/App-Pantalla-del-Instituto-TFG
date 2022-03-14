@@ -20,7 +20,7 @@
                 session.setAttribute("flag", false);
                 response.sendRedirect("index.jsp");
             }    
-            int rol = (int) session.getAttribute("rol");
+            int rol = Integer.parseInt(session.getAttribute("rol").toString());
         %>
         
         <div class="container-fluid">

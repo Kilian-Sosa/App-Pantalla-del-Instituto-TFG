@@ -86,29 +86,6 @@ public class ControlNews {
     }
     
     /*
-     *   Checks if there is already a record with that same title in the DB
-     *
-     *   @returns a boolean depending if it is already in the DB or not
-     */
-    private boolean isInserted(String newTitle){
-        try{
-            session = factory.openSession();
-            session.beginTransaction();
-
-            String hql = "SELECT * from News "  + 
-             "WHERE lower(title) like lower('%" + newTitle + "%')";
-            ArrayList<News> list = (ArrayList) session.createQuery(hql).getResultList();
-
-            return list != null;
-        }catch(RollbackException e){
-            System.out.println("Se ha producido un error al revisar si está insertado: " + e);
-            return false;
-        }finally{
-            session.close();
-        }
-    }
-    
-    /*
      *   Gets the ID of the record in the DB
      *
      *   @returns -1 or the ID depending if it is in the DB or not
@@ -166,13 +143,12 @@ public class ControlNews {
     public boolean modifyNews(){
         try{
             if(!isInserted()) return false;
-            if(isInserted(news.getNewTitle())) return false;
             session = factory.openSession();
             session.beginTransaction();
 
             News newsDB = (News) session.get(News.class, getID());
 
-            newsDB.setTitle(news.getNewTitle());
+            newsDB.setTitle(news.getTitle());
             newsDB.setDescription(news.getDescription());
             newsDB.setAuthor(news.getAuthor());
             newsDB.setDate_Init(news.getDate_Init());

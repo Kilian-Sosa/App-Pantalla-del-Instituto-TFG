@@ -97,7 +97,7 @@ public class ControlNewsManager {
      */
     public int execute(int num){
         news = new News(title, description, author, date_init, date_fin, url_image);
-        if(num == 2) news.setNewTitle(newTitle);
+        if(num == 2) news.setTitle(newTitle);
         ControlNews controlNews = new ControlNews(news);
            
         if(num == 0) { 

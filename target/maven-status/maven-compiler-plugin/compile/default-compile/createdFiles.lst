@@ -2,7 +2,6 @@ controller\ControlNewsManager.class
 model\format\Formatter.class
 POJOs\User.class
 model\view\ControlNews.class
-controller\MenuManager.class
 POJOs\Email.class
 POJOs\News.class
 controller\LogInManager.class

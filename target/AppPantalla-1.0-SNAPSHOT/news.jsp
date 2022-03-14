@@ -30,6 +30,8 @@
             ControlNewsManager manager = new ControlNewsManager();
             
             if(action != null || actionA != null){
+                if(action == null) action = "";
+                
                 title = request.getParameter("title");
                 if(action.compareTo("delete") == 0){
                     manager.setTitle(title);
@@ -57,7 +59,7 @@
             <!-- HEADER -->
             <div class="row">
                 <div class="py-3 col-12">
-                    <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="150" height="150">
+                    <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
                 </div>
 
                 <div class="col-12">

@@ -42,8 +42,6 @@ public class News{
     
     @Column(name = "autor")
     private String author;
-
-    private String newTitle;
     
     public News(){
         
@@ -55,7 +53,6 @@ public class News{
         this.date_init = date_init;
         this.date_fin = date_fin;
         this.url_image = "";
-        this.newTitle = "";
     }
     
     public News(String title, String description, String author, String date_init, String date_fin, String url_image){
@@ -65,7 +62,6 @@ public class News{
         this.date_init = date_init;
         this.date_fin = date_fin;
         this.url_image = url_image;
-        this.newTitle = "";
     }
     
     public News(int id, String title, String description, String author, String date_init, String date_fin, String url_image){
@@ -76,7 +72,6 @@ public class News{
         this.date_init = date_init;
         this.date_fin = date_fin;
         this.url_image = url_image;
-        this.newTitle = "";
     }
 
     public String getTitle() {
@@ -125,14 +120,6 @@ public class News{
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getNewTitle() {
-        return newTitle;
-    }
-
-    public void setNewTitle(String newTitle) {
-        this.newTitle = newTitle;
     }
     
     public int getID() {
