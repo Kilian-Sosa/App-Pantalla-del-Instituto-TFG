@@ -15,19 +15,30 @@
     
     <body>
         <!-- JAVA -->
-        <%
+        <%  
+            int rol = -1;
+            String url = "", url2 = "";
             if(session.getAttribute("email") == null){
                 session.setAttribute("flag", false);
                 response.sendRedirect("index.jsp");
-            }    
-            int rol = Integer.parseInt(session.getAttribute("rol").toString());
+                
+            } else {
+                rol = Integer.parseInt(session.getAttribute("rol").toString());
+                String mail = session.getAttribute("email").toString();
+                url = "https://avatars.dicebear.com/api/initials/" + mail + ".svg?size=70&r=50";
+                url2 = "https://avatars.dicebear.com/api/identicon/" + mail + ".svg?b=white&size=70&r=50";
+            }
         %>
         
         <div class="container-fluid">
             <!-- HEADER -->
-            <div class="row">
+            <div class="row py-3">
                 <div class="py-3 col-12">
                     <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
+                    <div class="float-end col-2">
+                        <img class="mx-auto d-block" src=<%= url2%>>
+                        <p class="fs-5 py-3 font-monospace text-center"><%= session.getAttribute("email")%></p>
+                    </div>
                 </div>
                 
                 <div class="col-12">
@@ -41,7 +52,7 @@
                 <%if(rol == 1){%>
                     <div class="py-3 col-12">
                         <form method="POST" action="users.jsp">
-                            <div class="col-4 mx-auto d-grid gap-2">
+                            <div class="col-6 mx-auto d-grid gap-2">
                                 <input type="submit" value="Usuarios" class="btn btn-primary">
                             </div>
                         </form>
@@ -51,7 +62,7 @@
                 <!-- NEWS BUTTON--> 
                 <div class="py-3 col-12">
                     <form method="POST" action="news.jsp">
-                        <div class="col-4 mx-auto d-grid gap-2">
+                        <div class="col-6 mx-auto d-grid gap-2">
                             <input type="submit" value="Noticias" class="btn btn-primary">
                         </div>
                     </form>
@@ -60,7 +71,7 @@
                 <!-- HOLIDAYS BUTTON--> 
                 <div class="py-3 col-12">
                     <form method="POST" action="holidays.jsp">
-                        <div class="col-4 mx-auto d-grid gap-2">
+                        <div class="col-6 mx-auto d-grid gap-2">
                             <input type="submit" value="Festivos" class="btn btn-primary">
                         </div>
                     </form>
@@ -69,7 +80,7 @@
                 <!-- ABSENCE BUTTON -->
                 <div class="py-3 col-12">
                     <form method="POST" action="absence.jsp">
-                        <div class="col-4 mx-auto d-grid gap-2">
+                        <div class="col-6 mx-auto d-grid gap-2">
                             <input type="submit" value="Ausencias" class="btn btn-primary">
                         </div>
                     </form>
@@ -79,7 +90,7 @@
                 <%if(rol == 1){%>
                 <div class="py-3 col-12">
                     <form method="GET" action="log.jsp">
-                        <div class="col-4 mx-auto d-grid gap-2">
+                        <div class="col-6 mx-auto d-grid gap-2">
                             <input type="submit" value="Log" class="btn btn-primary">
                         </div>
                     </form>
