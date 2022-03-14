@@ -35,7 +35,7 @@ public class LogIn {
             
             System.out.println(email.getEmail());
             String hql = "from User "  + 
-             "WHERE correo = '" + email.getEmail() + "'";
+             "WHERE lower(correo) like lower('%" + email.getEmail() + "%')";
             ArrayList<User> arraylist = (ArrayList) session.createQuery(hql).getResultList();
             
             return !(arraylist == null || arraylist.isEmpty());
@@ -83,6 +83,31 @@ public class LogIn {
         }
         return false;
     }
+    
+    /*
+     *   Gets the name of the record in the DB
+     *
+     *   @returns the name as String
+     */
+    public String getName(){
+        try{
+            session = factory.openSession();
+            session.beginTransaction();
+            
+            String hql = "from User "  + 
+             "WHERE lower(correo) like lower('%" + email.getEmail() + "%')";
+            ArrayList<User> arraylist = (ArrayList) session.createQuery(hql).getResultList();
+            
+            if(arraylist == null || arraylist.isEmpty()) return "No tiene nombre";
+            return arraylist.get(0).getName();
+        }catch(RollbackException e){
+            System.out.println("Se ha producido un error al recoger el id: " + e);
+            return "Error";
+        }finally{
+            session.close();
+        }
+    }
+    
     
     /*
      *   Gets the rol of the record in the DB

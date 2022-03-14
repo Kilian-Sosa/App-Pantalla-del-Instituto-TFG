@@ -23,12 +23,27 @@
     </head>
     
     <body>
+        <!-- JAVA -->
+        <% 
+            int rol = -1;
+            String url = "";
+            if(session.getAttribute("rol") == null || rol == 0){
+                session.setAttribute("flag", false);
+                response.sendRedirect("menu.jsp");
+            }
+            rol = Integer.parseInt(session.getAttribute("rol").toString());
+            //url = "https://avatars.dicebear.com/api/initials/" + session.getAttribute("email").toString() + ".svg?size=70&r=50";
+            url = "https://avatars.dicebear.com/api/identicon/" + session.getAttribute("email").toString() + ".svg?b=white&size=70&r=50";
+        %>
         <div class="container">
-
-            <!-- ENCABEZADO -->
-            <div class="row">
-                <div class="py-3 col-12">
-                    <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="150" height="150">
+            <!-- HEADER -->
+            <div class="row py-3">
+                <div class="py-2 col-12">
+                    <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
+                    <div class="float-end col-2 me-4">
+                        <img class="pt-5 mx-auto d-block" src="<%= url%>">
+                        <p class="fs-5 py-3 font-monospace text-center"><%= session.getAttribute("name")%></p>
+                    </div>
                 </div>
 
         <%
@@ -44,7 +59,7 @@
 
             <!-- FORMULARIO -->
             <div class="row">
-                <form method="GET" action="form_noticias.jsp">
+                <form method="POST" action="form_noticias.jsp">
                     <input type="hidden" name="id" value="0">
                     
                     <!-- NOMBRE -->
@@ -94,7 +109,7 @@
                     </div>    
                 </form>
                     
-                <form method="GET" action="festivos.jsp">
+                <form method="POST" action="festivos.jsp">
                     <div class="col-3 mx-auto d-grid gap-2">
                         <input type="submit" value="Volver a Festivos" class="btn btn-secondary">
                     </div>

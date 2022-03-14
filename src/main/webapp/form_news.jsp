@@ -23,125 +23,130 @@
     </head>
     
     <body>
-
-        <%
-            if(session.getAttribute("email") == null){
-                session.setAttribute("flag", false);
-                response.sendRedirect("index.jsp");
-            } 
-            
-            String action = request.getParameter("action");
-            String title = "";
-            String description = "";
-            String dateInit = "";
-            String dateFin = "";
-            String url_Image = "";
-            String newTitle = "";
-            String author = "" + session.getAttribute("email");
-            
-            if(action != null) action = "insert";
-            String btnValue = "Insertar";
-            String actionValue = "Add";
-            ControlNewsManager manager = new ControlNewsManager();
-            
-            if(action.compareTo("insert") == 0){%>
-                <div class="py-3 col-12">
-                    <p class="fs-1 text-center font-monospace">Añadir Noticia</p>
-                </div>
-            <%}
-            else if(action.compareTo("edit") == 0){
-                btnValue = "Editar";
-                actionValue = "Edit";
-                title = request.getParameter("title");
-                newTitle = title;
-            %>
-                <div class="py-3 col-12">
-                    <p class="fs-1 text-center font-monospace">Editar Noticia</p>
-                </div>
-            <%}else if(action.compareTo("Add") == 0){%>
-                <div class="py-3 col-12">
-                    <p class="fs-1 text-center font-monospace">Añadir Noticia</p>
-                </div>
-              <%
-                newTitle = request.getParameter("newTitle");
-                if(request.getParameter("description") != null) description = request.getParameter("description");
-                else description = "";
-
-                dateInit = request.getParameter("dateinit");
-                dateFin = request.getParameter("datefin");
-                if(request.getParameter("url_image") != null) url_Image = request.getParameter("url_image");
-                else url_Image = "";
-
-                if(title == null || title.isBlank()){%>
-                    <div class="alert alert-danger" role="alert">El título no puede estar en blanco</div>
-                <%}else if(dateInit == null || dateFin == null || dateInit.isBlank() || dateFin.isBlank()){%>
-                    <div class="alert alert-danger" role="alert">Escoja las fechas</div>
-                <%}else{
-                    manager.setTitle(newTitle);
-                    manager.setDescription(description);
-                    manager.setDateInit(dateInit);
-                    manager.setDateFin(dateFin);
-                    manager.setUrl_Image(url_Image);
-
-                    int cont = manager.execute(1);
-
-                    if(cont != 1){%>
-                        <div class="alert alert-danger" role="alert">Ya existe una noticia con ese título</div>
-                    <%}else{
-                        session.setAttribute("action", "insert");
-                        response.sendRedirect("http://localhost:8080/Web/news.jsp");
-                    } 
-                }
-            }else if(action.compareTo("Edit") == 0){
-                btnValue = "Editar";
-                actionValue = "Edit";
-            %>
-                <div class="py-3 col-12">
-                    <p class="fs-1 text-center font-monospace">Editar Noticia</p>
-                </div>
-              <%
-                title = request.getParameter("title");
-                if(!request.getParameter("newTitle").isBlank()) newTitle = request.getParameter("newTitle");
-                else newTitle = title;
-                
-                if(request.getParameter("description") != null) description = request.getParameter("description");
-                else description = "";
-
-                dateInit = request.getParameter("dateinit");
-                dateFin = request.getParameter("datefin");
-                if(request.getParameter("url_image") != null) url_Image = request.getParameter("url_image");
-                else url_Image = "";
-
-                if(dateInit == null || dateFin == null || dateInit.isBlank() || dateFin.isBlank()){%>
-                    <div class="alert alert-danger" role="alert">Escoja las fechas</div>
-                <%}else{
-                    manager.setTitle(title);
-                    manager.setNewTitle(newTitle);
-                    manager.setDescription(description);
-                    manager.setDateInit(dateInit);
-                    manager.setDateFin(dateFin);
-                    manager.setUrl_Image(url_Image);
-
-                    int cont = manager.execute(2);
-
-                    if(cont != 1){%>
-                        <div class="alert alert-danger" role="alert">Ya existe una noticia con ese título</div>
-                    <%}else{
-                        session.setAttribute("action", "edit");
-                        response.sendRedirect("http://localhost:8080/Web/news.jsp");
-                    } 
-                }
-            }%>
+        <!-- JAVA -->
+        <% 
+            String url = "";
+            //url = "https://avatars.dicebear.com/api/initials/" + session.getAttribute("email").toString() + ".svg?size=70&r=50";
+            url = "https://avatars.dicebear.com/api/identicon/" + session.getAttribute("email").toString() + ".svg?b=white&size=70&r=50";
+        %>
         <div class="container">
 
-            <!-- ENCABEZADO -->
+            <!-- HEADER -->
             <div class="row">
                 <div class="py-3 col-12">
                     <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
                 </div>
+                <%
+                    if(session.getAttribute("email") == null){
+                        session.setAttribute("flag", false);
+                        response.sendRedirect("index.jsp");
+                    } 
+
+                    String action = request.getParameter("action");
+                    String title = "";
+                    String description = "";
+                    String dateInit = "";
+                    String dateFin = "";
+                    String url_Image = "";
+                    String newTitle = "";
+                    String author = "" + session.getAttribute("email");
+
+                    if(action != null) action = "insert";
+                    String btnValue = "Insertar";
+                    String actionValue = "Add";
+                    ControlNewsManager manager = new ControlNewsManager();
+
+                    if(action.compareTo("insert") == 0){%>
+                        <div class="py-3 col-12">
+                            <p class="fs-1 text-center font-monospace">Añadir Noticia</p>
+                        </div>
+                    <%}
+                    else if(action.compareTo("edit") == 0){
+                        btnValue = "Editar";
+                        actionValue = "Edit";
+                        title = request.getParameter("title");
+                        newTitle = title;
+                    %>
+                        <div class="py-3 col-12">
+                            <p class="fs-1 text-center font-monospace">Editar Noticia</p>
+                        </div>
+                    <%}else if(action.compareTo("Add") == 0){%>
+                        <div class="py-3 col-12">
+                            <p class="fs-1 text-center font-monospace">Añadir Noticia</p>
+                        </div>
+                      <%
+                        newTitle = request.getParameter("newTitle");
+                        if(request.getParameter("description") != null) description = request.getParameter("description");
+                        else description = "";
+
+                        dateInit = request.getParameter("dateinit");
+                        dateFin = request.getParameter("datefin");
+                        if(request.getParameter("url_image") != null) url_Image = request.getParameter("url_image");
+                        else url_Image = "";
+
+                        if(title == null || title.isBlank()){%>
+                            <div class="alert alert-danger" role="alert">El título no puede estar en blanco</div>
+                        <%}else if(dateInit == null || dateFin == null || dateInit.isBlank() || dateFin.isBlank()){%>
+                            <div class="alert alert-danger" role="alert">Escoja las fechas</div>
+                        <%}else{
+                            manager.setTitle(newTitle);
+                            manager.setDescription(description);
+                            manager.setDateInit(dateInit);
+                            manager.setDateFin(dateFin);
+                            manager.setUrl_Image(url_Image);
+
+                            int cont = manager.execute(1);
+
+                            if(cont != 1){%>
+                                <div class="alert alert-danger" role="alert">Ya existe una noticia con ese título</div>
+                            <%}else{
+                                session.setAttribute("action", "insert");
+                                response.sendRedirect("http://localhost:8080/Web/news.jsp");
+                            } 
+                        }
+                    }else if(action.compareTo("Edit") == 0){
+                        btnValue = "Editar";
+                        actionValue = "Edit";
+                    %>
+                        <div class="py-3 col-12">
+                            <p class="fs-1 text-center font-monospace">Editar Noticia</p>
+                        </div>
+                      <%
+                        title = request.getParameter("title");
+                        if(!request.getParameter("newTitle").isBlank()) newTitle = request.getParameter("newTitle");
+                        else newTitle = title;
+
+                        if(request.getParameter("description") != null) description = request.getParameter("description");
+                        else description = "";
+
+                        dateInit = request.getParameter("dateinit");
+                        dateFin = request.getParameter("datefin");
+                        if(request.getParameter("url_image") != null) url_Image = request.getParameter("url_image");
+                        else url_Image = "";
+
+                        if(dateInit == null || dateFin == null || dateInit.isBlank() || dateFin.isBlank()){%>
+                            <div class="alert alert-danger" role="alert">Escoja las fechas</div>
+                        <%}else{
+                            manager.setTitle(title);
+                            manager.setNewTitle(newTitle);
+                            manager.setDescription(description);
+                            manager.setDateInit(dateInit);
+                            manager.setDateFin(dateFin);
+                            manager.setUrl_Image(url_Image);
+
+                            int cont = manager.execute(2);
+
+                            if(cont != 1){%>
+                                <div class="alert alert-danger" role="alert">Ya existe una noticia con ese título</div>
+                            <%}else{
+                                session.setAttribute("action", "edit");
+                                response.sendRedirect("http://localhost:8080/Web/news.jsp");
+                            } 
+                        }
+                    }%>
             </div>
 
-            <!-- FORMULARIO -->
+            <!-- FORM -->
             <div class="row">
                 <form method="POST" action="form_news.jsp">
                     

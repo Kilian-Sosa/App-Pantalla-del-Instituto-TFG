@@ -17,6 +17,7 @@
     </head>
     
     <body>
+        <!-- JAVA -->
         <%
             if(session.getAttribute("email") == null){
                 session.setAttribute("flag", false);
@@ -36,7 +37,7 @@
                 if(action.compareTo("delete") == 0){
                     manager.setTitle(title);
                             
-                    int cont = manager.execute(2);
+                    int cont = manager.execute(3);
                     if(cont != 1){%>
                         <div class="alert alert-danger" role="alert">Ha habido un error al eliminar la noticia</div>
                     <%}else{%>
@@ -115,7 +116,7 @@
                                         <form method="POST" action="news.jsp">
                                             <div class="d-grid gap-2">
                                                 <input type="hidden" name="accion" value="delete">
-                                                <input name="title" type="hidden" value=""<%=news.getTitle()%>">
+                                                <input name="title" type="hidden" value="<%=news.getTitle()%>">
                                                 <input type="submit" value="Eliminar" class="btn btn-danger">
                                             </div>
                                         </form>

@@ -49,6 +49,7 @@
                             <%}else{
                                 session.setAttribute("email", email);
                                 session.setAttribute("password", password);
+                                session.setAttribute("name", manager.getName());
                                 session.setAttribute("rol", manager.getRol());
                                 response.sendRedirect("http://localhost:8080/Web/menu.jsp");
                             }

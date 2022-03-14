@@ -31,7 +31,7 @@ public class ControlNews {
             
             return !(list == null || list.isEmpty());
         }catch(RollbackException e){
-            System.out.println("Se ha producido un error al revisar si está insertado: " + e);
+            System.out.println("Se ha producido un error al revisar si hay registros: " + e);
             return false;
         }finally{
             session.close();
@@ -54,7 +54,7 @@ public class ControlNews {
 
             return list;
         }catch(RollbackException e){
-            System.out.println("Se ha producido un error al revisar si está insertado: " + e);
+            System.out.println("Se ha producido un error al recoger los registros: " + e);
             return null;
         }finally{
             session.close();
@@ -84,36 +84,11 @@ public class ControlNews {
             session.close();
         }
     }
-    
-    /*
-     *   Gets the ID of the record in the DB
-     *
-     *   @returns -1 or the ID depending if it is in the DB or not
-     */
-    public int getID(){
-        try{
-            if(!hasRecords()) return -1;
-            session = factory.openSession();
-            session.beginTransaction();
-
-            String hql = "SELECT id from News "  + 
-             "WHERE lower(title) like lower('%" + news.getTitle() + "%')";
-            ArrayList<News> list = (ArrayList) session.createQuery(hql).getResultList();
-
-            if(list == null) throw new RollbackException();
-            return list.get(0).getID();
-        }catch(RollbackException e){
-            System.out.println("Se ha producido un error al recoger el id: " + e);
-            return -1;
-        }finally{
-            session.close();
-        }
-    }
 
     /*
      *   Inserts the news in the DB
      *
-     *   @returns Returns a boolean depending if it worked or not
+     *   @returns a boolean depending if it worked or not
      */
     public boolean insertNews(){
         try{
@@ -128,7 +103,7 @@ public class ControlNews {
             System.out.println("Noticia insertada correctamente.");
             return true;
         } catch(RollbackException ex){
-            System.out.println("Error al insertar una noticia: "+ ex);
+            System.out.println("Error al insertar la noticia: "+ ex);
            return false;
         }finally{
             session.close();
@@ -138,7 +113,7 @@ public class ControlNews {
     /*
      *   Updates the record in the DB
      *
-     *   @return Returns boolean depending if the action was succesful or not
+     *   @return a boolean depending if the action was succesful or not
      */
     public boolean modifyNews(){
         try{
@@ -146,7 +121,7 @@ public class ControlNews {
             session = factory.openSession();
             session.beginTransaction();
 
-            News newsDB = (News) session.get(News.class, getID());
+            News newsDB = (News) session.get(News.class, news.getID());
 
             newsDB.setTitle(news.getTitle());
             newsDB.setDescription(news.getDescription());
@@ -159,7 +134,7 @@ public class ControlNews {
             session.getTransaction().commit();
             return true;
         }catch (RollbackException ex) {
-            System.out.println("Error al modificar el alumno: " + ex);
+            System.out.println("Error al modificar la noticia: " + ex);
             return false;
         }finally{
             session.close();

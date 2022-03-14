@@ -89,9 +89,11 @@ public class ControlNewsManager {
     }
 
     /*
-     *   Creates a new instance of ControlNews and executes the method depending of the number given
+     *   Creates a new instance of ControlNews and executes the method depending
+     *   of the number given
      *
-     *   @param 0 meaning getNews(), 1 meaning insertNews(), 2 meaning modifyNews() and 3 meaning deleteNews()
+     *   @param 0 meaning getNews(), 1 meaning insertNews(), 2 meaning 
+     *          modifyNews() and 3 meaning deleteNews()
      *
      *   @returns 1 if it worked or -1 if it did not work
      */
@@ -102,7 +104,7 @@ public class ControlNewsManager {
            
         if(num == 0) { 
             list = controlNews.getNews(); 
-            if(list == null || list.isEmpty()) return -11;
+            if(list == null || list.isEmpty()) return -1;
             return 1;
         }
         

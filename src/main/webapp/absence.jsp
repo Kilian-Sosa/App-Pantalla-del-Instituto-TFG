@@ -21,21 +21,26 @@
     </head>
     
     <body>
-        <!-- CODIGO JAVA -->
+        <!-- JAVA -->
         <%
-        
+            String url = "";
+            //url = "https://avatars.dicebear.com/api/initials/" + session.getAttribute("email").toString() + ".svg?size=70&r=50";
+            url = "https://avatars.dicebear.com/api/identicon/" + session.getAttribute("email").toString() + ".svg?b=white&size=70&r=50";
         %>
         
         <div class="container">
-            
-            <!-- ENCABEZADO -->
-            <div class="row">
-                <div class="py-3 col-12">
-                    <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="150" height="150">
+            <!-- HEADER -->
+            <div class="row py-3">
+                <div class="py-2 col-12">
+                    <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
+                    <div class="float-end col-2 me-4">
+                        <img class="pt-5 mx-auto d-block" src="<%= url%>">
+                        <p class="fs-5 py-3 font-monospace text-center"><%= session.getAttribute("name")%></p>
+                    </div>
                 </div>
                 
                 <div class="col-12">
-                    <p class="fs-1 text-center font-monospace">Ausencias</p>
+                    <p class="fs-1 text-center font-monospace">Gestor de Usuarios</p>
                 </div>
             </div>
             
@@ -44,16 +49,16 @@
                 
             </div>
             
-            <!-- BOTÓN VOLVER -->
+            <!-- RETURN BUTTON -->
             <div class="row py-5">
-                <form method="GET" action="menu.jsp">
+                <form method="POST" action="menu.jsp">
                     <div class="col-2 mx-auto d-grid gap-2">
                         <input type="submit" value="Volver Atrás" class="btn btn-secondary">
                     </div>
                 </form>
             </div>
                         
-        </div> <!-- CIERRE CONTAINER -->
+        </div> <!-- END CONTAINER -->
         
     </body>
 </html>

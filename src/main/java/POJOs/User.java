@@ -71,6 +71,10 @@ public class User{
         this.password = email.getPassword();
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public int getRol() {
         return rol;
     }
@@ -79,11 +83,11 @@ public class User{
         this.rol = rol;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
 }
