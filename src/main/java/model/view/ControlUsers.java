@@ -9,10 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-/**
- *
- * @author kilian
- */
 public class ControlUsers {
     private User user;
     private static SessionFactory factory;
@@ -67,6 +63,30 @@ public class ControlUsers {
     }
     
     /*
+     *   Gets all records in the DB
+     *
+     *   @returns an ArrayList of the records
+     */
+    public ArrayList<User> getUsersByOrder(String field, String order){
+        try{
+            ArrayList<User> list;
+            
+            session = factory.openSession();
+            session.beginTransaction();
+            
+            String hql = "from User ORDER BY " + field + " " + order;
+            list = (ArrayList)  session.createQuery(hql).getResultList();
+
+            return list;
+        }catch(RollbackException e){
+            System.out.println("Se ha producido un error al recoger los registros: " + e);
+            return null;
+        }finally{
+            session.close();
+        }
+    }
+    
+    /*
      *   Checks if the record is in the DB
      *
      *   @returns a boolean depending if it is already in the DB or not
@@ -81,7 +101,6 @@ public class ControlUsers {
             String hql = "from User "  + 
              "WHERE lower(correo) like lower('%" + user.getEmail().getEmail() + "%')";
             ArrayList<User> arraylist = (ArrayList) session.createQuery(hql).getResultList();
-            
             return !(arraylist == null || arraylist.isEmpty());
         }catch(RollbackException e){
             System.out.println("Se ha producido un error al recoger el id: " + e);
@@ -103,7 +122,7 @@ public class ControlUsers {
             session.beginTransaction();
 
             session.save(user);
-
+            
             session.getTransaction().commit();
 
             System.out.println("Usuario insertado correctamente.");

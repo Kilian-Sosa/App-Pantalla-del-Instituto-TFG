@@ -1,3 +1,5 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="controller.ControlLogManager"%>
 <%@page import="POJOs.User"%>
 <%@page import="POJOs.Email"%>
 <%@page import="controller.ControlUsersManager"%>
@@ -35,25 +37,43 @@
             //url = "https://avatars.dicebear.com/api/initials/" + session.getAttribute("email").toString() + ".svg?size=70&r=50";
             url = "https://avatars.dicebear.com/api/identicon/" + session.getAttribute("email").toString() + ".svg?b=white&size=70&r=50";
             
-            String action = "", actionA = "";
+            String action = "", actionA = "", order = "";
+            
             if(request.getParameter("action") != null) action = request.getParameter("action");
             if(session.getAttribute("action") != null) actionA = session.getAttribute("action").toString();
+            if(request.getParameter("order") != null) order = request.getParameter("order");
             int id = 0;
             
-            ControlUsersManager manager = new ControlUsersManager();
+            ControlUsersManager managerU = new ControlUsersManager();
+            ControlLogManager managerL = new ControlLogManager();
             
+            managerU.execute(1);
+            ArrayList<User> list = managerU.getList();
             if(!action.isBlank() || !actionA.isBlank()){
                 if(request.getParameter("id") != null) id = Integer.parseInt(request.getParameter("id"));
                 if(action.compareTo("delete") == 0){
                     if(id == 1){%>
                         <div class="alert alert-danger" role="alert">No se puede borrar este administrador</div>
                     <%}else{    
-                        manager.setID(id);
+                        managerU.setID(id);
 
-                        int cont = manager.execute(4);
+                        int cont = managerU.execute(4);
                         if(cont != 1){%>
                             <div class="alert alert-danger" role="alert">Ha habido un error al eliminar el usuario</div>
-                        <%}else{%>
+                        <%}else{
+                            LocalDate localDate = LocalDate.now();
+                            managerL.setAction("Eliminado el usuario: " + request.getParameter("name") + ", " + request.getParameter("email"));
+                            managerL.setAuthor(session.getAttribute("name").toString());
+                            managerL.setDate(localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear());
+
+                            managerL.execute(1);
+                            managerU.execute(1);
+                            list = managerU.getList();
+
+                            if(request.getParameter("email") == session.getAttribute("email").toString()){
+                                session.setAttribute("flag2", false);
+                                response.sendRedirect("login.jsp");
+                            }%>
                             <div class="alert alert-success" role="alert">Se ha eliminado el usuario correctamente</div>
                         <%} 
                     }        
@@ -63,11 +83,15 @@
                         <div class="alert alert-success" role="alert">Se ha modificado correctamente el usuario</div>  
                     <%}else if(actionA.compareTo("insert") == 0){%>
                         <div class="alert alert-success" role="alert">Se ha insertado el usuario correctamente</div>
-                    <%}   
+                    <%}else{
+                        switch(action){
+                            case "name":  list = managerU.getListByOrder("nombre", order);
+                            case "email":  list = managerU.getListByOrder("correo", order);
+                            case "rol":  list = managerU.getListByOrder("rol", order);
+                        }
+                    }   
                 }
             }    
-            manager.execute(1);
-            ArrayList<User> list = manager.getList();
         %>
         
         <div class="container-fluid">
@@ -92,11 +116,16 @@
                     <table class="table table-striped align-middle">
                         <thead>
                             <tr>
-                                <th><a href="users.jsp">Nombre</a></th>
-                                <th><a href="users.jsp">Correo</a></th>
-                                <th><a href="users.jsp">Rol</a></th>
-                                <!-- <th><a href="users.jsp">Ausencia</a></th> -->
-                                <th></th>
+                                <%if(order.equals("ASC")){%>
+                                    <th><a href="users.jsp?action=name&order=DESC" name="action" value="name">Nombre</a></th>
+                                    <th><a href="users.jsp?action=email&order=DESC" name="action" value="email">Correo</a></th>
+                                    <th><a href="users.jsp?action=rol&order=DESC" name="action" value="rol">Rol</a></th>
+                                <%}else{%>    
+                                    <th><a href="users.jsp?action=name&order=ASC" name="action" value="name">Nombre</a></th>
+                                    <th><a href="users.jsp?action=email&order=ASC" name="action" value="email">Correo</a></th>
+                                    <th><a href="users.jsp?action=rol&order=ASC" name="action" value="rol">Rol</a></th>
+                                <%}%>    
+                                    <th></th>
                             </tr>
                         </thead>
                         <tbody>                         
@@ -108,7 +137,6 @@
                                     <td><%=user.getName()%></td>
                                     <td><%=user.getEmail().getEmail()%></td>
                                     <td><%= user.getRolS()%></td>
-                                    <!-- user.getAbscense()%></td> -->
                                     <td>
                                         <!-- EDIT BUTTON -->
                                         <form method="POST" action="form_users.jsp">
@@ -119,7 +147,6 @@
                                                 <input name="email" type="hidden" value="<%=user.getEmail().getEmail()%>">
                                                 <input name="password" type="hidden" value="<%=user.getEmail().getPassword()%>">
                                                 <input name="rol" type="hidden" value="<%=user.getRol()%>">
-                                                <!-- <input name="absence" type="hidden" value="%user.getAbscense()%>"> -->
                                                 <input type="submit" value="Editar" class="btn btn-primary">
                                             </div>
                                         </form>
@@ -130,6 +157,8 @@
                                             <div class="d-grid gap-2">
                                                 <input type="hidden" name="action" value="delete">
                                                 <input name="id" type="hidden" value="<%=user.getID()%>">
+                                                <input name="name" type="hidden" value="<%=user.getName()%>">
+                                                <input name="email" type="hidden" value="<%=user.getEmail().getEmail()%>">
                                                 <input type="submit" value="Eliminar" class="btn btn-secondary">
                                             </div>
                                         </form>

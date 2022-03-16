@@ -67,10 +67,15 @@ public class ControlUsersManager{
     public void setList(ArrayList<User> list) {
         this.list = list;
     }
+    
+    public ArrayList<User> getListByOrder(String field, String order){
+        ControlUsers controlUsers = new ControlUsers(null);
+        return controlUsers.getUsersByOrder(field, order);
+    }
 
     /*
      *   Creates a new instance of ControlUsers or LogIn and executes the method 
-     *   depending of the number given
+     *   depending on the number given
      *
      *   @param 0 meaning LogIn, 1 meaning getUsers(), 2 meaning insertUser(), 
      *          3 meaning modifyUser() or 4 meaning deleteUser()

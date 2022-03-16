@@ -6,6 +6,7 @@
 package controller;
 
 import POJOs.News;
+import java.io.File;
 import java.util.ArrayList;
 import model.view.ControlNews;
 
@@ -18,10 +19,11 @@ public class ControlNewsManager {
     private int id;
     private String title = "";
     private String description = "";
-    private String url_image = "";
+    private File image;
     private String date_init = "";
     private String date_fin = "";
     private String author = "";
+    private int mills = 0;
     private ArrayList<News> list;
 
     public ControlNewsManager(){
@@ -36,8 +38,12 @@ public class ControlNewsManager {
         this.description = description;
     }
 
-    public void setUrlImage(String url_image) {
-        this.url_image = url_image;
+    public void setFile(File image) {
+        this.image = image;
+    }
+
+    public File getFile() {
+        return image;
     }
 
     public void setDateInit(String date_init) {
@@ -56,14 +62,6 @@ public class ControlNewsManager {
         this.author = author;
     }
 
-    public String getUrl_Image() {
-        return url_image;
-    }
-
-    public void setUrl_Image(String url_image) {
-        this.url_image = url_image;
-    }
-
     public int getID() {
         return id;
     }
@@ -72,12 +70,25 @@ public class ControlNewsManager {
         this.id = id;
     }
 
+    public int getMills() {
+        return mills;
+    }
+
+    public void setMills(int mills) {
+        this.mills = mills;
+    }
+
     public ArrayList<News> getList() {
         return list;
     }
 
     public void setList(ArrayList<News> list) {
         this.list = list;
+    }
+    
+    public ArrayList<News> getListByOrder(String field, String order){
+        ControlNews controlNeews = new ControlNews(null);
+        return controlNeews.getNewsByOrder(field, order);
     }
 
     public News getNews() {
@@ -90,20 +101,25 @@ public class ControlNewsManager {
 
     /*
      *   Creates a new instance of ControlNews and executes the method depending
-     *   of the number given
+     *   on the number given
      *
      *   @param 0 meaning getNews(), 1 meaning insertNews(), 2 meaning 
-     *          modifyNews() and 3 meaning deleteNews()
+     *          modifyNews(), 3 meaning deleteNews() or 4 meaning getNewsByDate()
      *
      *   @returns 1 if it worked or -1 if it did not work
      */
     public int execute(int num){
-        news = new News(id, title, description, author, date_init, date_fin, url_image);
+        news = new News(id, title, description, author, date_init, date_fin, image, mills);
         ControlNews controlNews = new ControlNews(news);
         if(num == 0) { 
             list = controlNews.getNews(); 
             if(list == null || list.isEmpty()) return -1;
             return 1;
+        }else if(num == 4){
+            list = controlNews.getNewsByDate(); 
+            if(list == null || list.isEmpty()) return -1;
+            return 1;
+
         }
         
         switch(num){

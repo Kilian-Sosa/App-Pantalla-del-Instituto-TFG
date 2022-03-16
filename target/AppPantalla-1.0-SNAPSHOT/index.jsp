@@ -1,3 +1,7 @@
+<%@page import="POJOs.News"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="controller.ControlNewsManager"%>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -17,35 +21,49 @@
         <!-- JAVA -->
         <%
             String transparent = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/9c64cfe3-bb3b-4ae8-b5a6-d2f39d21ff87/d3jme6i-8c702ad4-4b7a-4763-9901-99f8b4f038b0.png/v1/fill/w_600,h_400,strp/fondo_transparente_png_by_imsnowbieber_d3jme6i-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NDAwIiwicGF0aCI6IlwvZlwvOWM2NGNmZTMtYmIzYi00YWU4LWI1YTYtZDJmMzlkMjFmZjg3XC9kM2ptZTZpLThjNzAyYWQ0LTRiN2EtNDc2My05OTAxLTk5ZjhiNGYwMzhiMC5wbmciLCJ3aWR0aCI6Ijw9NjAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.Ymv-MHRcmXXpzmL3f0xZ0mCcyU85lCLnk0jbOnCO8Zg";
+            
+            ControlNewsManager manager = new ControlNewsManager();
+            manager.execute(4);
+            ArrayList<News> list = manager.getList();
+            int mills = 0;
         %>
         
         <div class="container-fluid">
             <!-- CAROUSEL -->
             <div class="row recuadro-noticia m-3">
                 <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" data-bs-interval="20000">
-                            <img src="<%= transparent%>" class="d-block w-100 recuadro-imagen">
-                            <div class="carousel-caption d-none d-md-block">
-                                <p class="fs-1 font-monospace">Titulo 1</p>
-                                <p class="fs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt ut tellus non vulputate. 
-                                    Duis commodo elit ac nisl maximus finibus.Aliquam lorem lectus, suscipit in metus eu, pretium volutpat odio. 
-                                </p>
+                    <%if(!list.isEmpty()){%>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" data-bs-interval="<%=list.get(0).getMills()%>">
+                                <img src="<%=transparent%>" class="d-block w-100 recuadro-imagen">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <img src="https://i1.wp.com/www3.gobiernodecanarias.org/medusa/edublog/ieselrincon/wp-content/uploads/sites/137/2019/10/cropped-sin-titulo-4.png?fit=512%2C512&ssl=1" width="100" height="100">
+                                    <p class="fs-1 font-monospace"><%=list.get(0).getTitle()%></p>
+                                    <p class="fs-5"><%=list.get(0).getDescription()%></p>
+                                </div>
                             </div>
+
+                            <%for(int i = 1; i < list.size(); i++){%>
+                                <div class="carousel-item" data-bs-interval="<%=list.get(i).getMills()%>">
+                                    <img src="<%=transparent%>" height="400" class="d-block w-100 recuadro-imagen">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <img src="https://i1.wp.com/www3.gobiernodecanarias.org/medusa/edublog/ieselrincon/wp-content/uploads/sites/137/2019/10/cropped-sin-titulo-4.png?fit=512%2C512&ssl=1" width="100" height="100">
+                                        <p class="fs-1 font-monospace"><%=list.get(i).getTitle()%></p>
+                                        <p class="fs-5"><%=list.get(i).getDescription()%></p>
+                                    </div>
+                                </div>
+                            <%}%>
                         </div>
-                        <div class="carousel-item" data-bs-interval="20000">
-                            <img src="<%= transparent%>" height="400" class="d-block w-100 recuadro-imagen">
-                            <div class="carousel-caption d-none d-md-block">
-                                <p class="fs-1 font-monospace">Titulo 2</p>
-                                <p class="fs-5">
-                                    Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. 
-                                    Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. 
-                                    Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. 
-                                </p>
-                            </div>
+                    <%}else{%>
+                        <p class="fs-1 font-monospace">No hay ninguna noticia activa por el momento</p>
+                        <div class="row">
+                            <form method="POST" action="login.jsp">
+                                <div class="col-3 mx-auto d-grid gap-2">
+                                    <input type="submit" value="Log In" class="btn btn-secondary">
+                                </div>
+                            </form>
                         </div>
-                    </div>
+                    <%}%>
                     <img class="float-start" src="https://i1.wp.com/www3.gobiernodecanarias.org/medusa/edublog/ieselrincon/wp-content/uploads/sites/137/2019/10/cropped-sin-titulo-4.png?fit=512%2C512&ssl=1" width="100" height="100">
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -56,7 +74,7 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-            </div>
+            </div> 
                     
             <!-- RETURN BUTTON -->
             <%if(session.getAttribute("email") != null){%>
@@ -68,6 +86,11 @@
                     </form>
                 </div>
             <%}%>    
+            
+            <%for(int i = 0; i < list.size(); i++)
+                    mills += list.get(i).getMills();
+            session.setAttribute("mills", mills); %>
+            <%response.setHeader("Refresh", 10000 + ", url=8m.jsp?");%>
         </div> <!-- END CONTAINER -->
     </body>
 </html>

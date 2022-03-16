@@ -2,12 +2,12 @@ package model.view;
 
 import POJOs.News;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.persistence.RollbackException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.hql.internal.ast.QuerySyntaxException;
 
 public class ControlNews {
     private News news;
@@ -41,6 +41,61 @@ public class ControlNews {
             session.close();
         }
     }
+    
+    /*
+     *   Gets all records in the DB
+     *
+     *   @returns an ArrayList of the records
+     */
+    public ArrayList<News> getNewsByOrder(String field, String order){
+        try{
+            ArrayList<News> list;
+            
+            session = factory.openSession();
+            session.beginTransaction();
+            
+            String hql = "from News ORDER BY " + field + " " + order;
+            list = (ArrayList)  session.createQuery(hql).getResultList();
+
+            return list;
+        }catch(RollbackException e){
+            System.out.println("Se ha producido un error al recoger los registros: " + e);
+            return null;
+        }finally{
+            session.close();
+        }
+    }
+    
+    /*
+     *   Gets all the news for the current day from in the DB
+     *
+     *   @returns an ArrayList of the news
+     */
+    public ArrayList<News> getNewsByDate(){
+        try{
+            LocalDate localDate = LocalDate.now();
+            
+            ArrayList<News> list;
+            ArrayList<News> list2 = new ArrayList();
+            session = factory.openSession();
+            session.beginTransaction();
+            
+            list = (ArrayList) session.createQuery("from News").getResultList();
+
+            for(int i = 0; i < list.size(); i++)
+                if(Integer.parseInt(list.get(i).getDate_Init().substring(6)) <= localDate.getYear() && Integer.parseInt(list.get(i).getDate_Fin().substring(6)) >= localDate.getYear())
+                    if(Integer.parseInt(list.get(i).getDate_Init().substring(3, 4)) <= localDate.getMonthValue() && Integer.parseInt(list.get(i).getDate_Init().substring(3, 4)) >= localDate.getMonthValue())
+                        if(Integer.parseInt(list.get(i).getDate_Init().substring(3, 4)) <= localDate.getDayOfMonth() && Integer.parseInt(list.get(i).getDate_Init().substring(3, 4)) >= localDate.getDayOfMonth())
+                            list2.add(list.get(i));
+            
+            return list2;
+        }catch(RollbackException e){
+            System.out.println("Se ha producido un error al recoger los registros: " + e);
+            return null;
+        }finally{
+            session.close();
+        }
+    }
 
     /*
      *   Inserts the news in the DB
@@ -54,6 +109,7 @@ public class ControlNews {
 
             session.save(news);
 
+            
             session.getTransaction().commit();
 
             System.out.println("Noticia insertada correctamente.");
@@ -83,7 +139,7 @@ public class ControlNews {
             newsDB.setAuthor(news.getAuthor());
             newsDB.setDate_Init(news.getDate_Init());
             newsDB.setDate_Fin(news.getDate_Fin());
-            newsDB.setUrl_Image(news.getUrl_Image());
+            newsDB.setImage(news.getImage());
 
             session.update(newsDB);
             session.getTransaction().commit();

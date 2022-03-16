@@ -1,3 +1,5 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="controller.ControlLogManager"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="POJOs.News"%>
 <%@page import="controller.ControlNewsManager"%>
@@ -31,19 +33,31 @@
             String action = request.getParameter("action");
             String actionA = "" + session.getAttribute("action");
             int id = 0;
+            String title = "", order = "";
             
-            ControlNewsManager manager = new ControlNewsManager();
+            ControlNewsManager managerN = new ControlNewsManager();
+            ControlLogManager managerL = new ControlLogManager();
+            
+            managerN.execute(0);
+            ArrayList<News> list = managerN.getList();
             
             if(action != null || actionA != null){
+                if(request.getParameter("order") != null) order = request.getParameter("order");
                 if(action == null) action = "";
                 if(action.compareTo("delete") == 0){
                     id = Integer.parseInt(request.getParameter("id"));
-                    manager.setID(id);
+                    managerN.setID(id);
                         
-                    int cont = manager.execute(3);
+                    int cont = managerN.execute(3);
                     if(cont != 1){%>
                         <div class="alert alert-danger" role="alert">Ha habido un error al eliminar la noticia</div>
-                    <%}else{%>
+                    <%}else{
+                        LocalDate localDate = LocalDate.now();
+                        managerL.setAction("Eliminado la noticia: " + title);
+                        managerL.setAuthor(session.getAttribute("name").toString());
+                        managerL.setDate(localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear());
+
+                        managerL.execute(1);%>
                         <div class="alert alert-success" role="alert">Se ha eliminado la noticia correctamente</div>
                     <%} 
                 }else{
@@ -52,11 +66,17 @@
                         <div class="alert alert-success" role="alert">Se ha modificado correctamente la noticia</div>  
                     <%}else if(actionA.compareTo("insert") == 0){%>
                         <div class="alert alert-success" role="alert">Se ha insertado la noticia correctamente</div>
-                    <%}   
+                    <%}else{
+                        managerN.execute(0);
+                        switch(action){
+                            case "title":  list = managerN.getListByOrder("title", order);
+                            case "author":  list = managerN.getListByOrder("author", order);
+                            case "dateInit":  list = managerN.getListByOrder("dateInit", order);
+                            case "dateFin":  list = managerN.getListByOrder("dateFin", order);
+                        }
+                    }      
                 }
             }    
-            manager.execute(0);
-            ArrayList<News> list = manager.getList();
         %>
         <div class="container-fluid">
             <!-- HEADER -->
@@ -80,10 +100,17 @@
                     <table class="table table-striped align-middle">
                         <thead>
                             <tr>
-                                <th><a href="news.jsp">Título</a></th>
-                                <th><a href="news.jsp">Autor</a></th>
-                                <th><a href="news.jsp">Dia Inicio</a></th>
-                                <th><a href="news.jsp">Dia Fin</a></th>
+                                <%if(order.equals("ASC")){%>
+                                    <th><a href="news.jsp?action=title&order=DESC" name="action" value="title">Nombre</a></th>
+                                    <th><a href="news.jsp?action=author&order=DESC" name="action" value="author">Correo</a></th>
+                                    <th><a href="news.jsp?action=dateInit&order=DESC" name="action" value="dateInit">Dia Inicio</a></th>
+                                    <th><a href="news.jsp?action=dateFin&order=DESC" name="action" value="dateFin">Dia Fin</a></th>
+                                <%}else{%>    
+                                    <th><a href="news.jsp?action=title&order=ASC" name="action" value="title">Nombre</a></th>
+                                    <th><a href="news.jsp?action=author&order=ASC" name="action" value="author">Correo</a></th>
+                                    <th><a href="news.jsp?action=dateInit&order=ASC" name="action" value="dateInit">Dia Inicio</a></th>
+                                    <th><a href="news.jsp?action=dateFin&order=ASC" name="action" value="dateFin">Dia Fin</a></th>
+                                <%}%>   
                                 <th></th>
                             </tr>
                         </thead>
@@ -102,7 +129,7 @@
                                             <div class="d-grid gap-2">
                                                 <input type="hidden" name="action" value="edit">
                                                 <input name="id" type="hidden" value="<%=news.getID()%>">
-                                                <input name="url_image" type="hidden" value="<%=news.getUrl_Image()%>">
+                                                <input name="path" type="hidden" value="<%=news.getFile().getAbsolutePath()%>">
                                                 <input name="title" type="hidden" value="<%=news.getTitle()%>">
                                                 <input name="description" type="hidden" value="<%=news.getDescription()%>">
                                                 <input name="author" type="hidden" value="<%=news.getAuthor()%>">
@@ -118,6 +145,7 @@
                                             <div class="d-grid gap-2">
                                                 <input type="hidden" name="action" value="delete">
                                                 <input name="id" type="hidden" value="<%=news.getID()%>">
+                                                <input name="title" type="hidden" value="<%=news.getTitle()%>">
                                                 <input type="submit" value="Eliminar" class="btn btn-secondary">
                                             </div>
                                         </form>

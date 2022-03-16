@@ -5,12 +5,15 @@
  */
 package POJOs;
 
+import java.io.File;
+import java.sql.Blob;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -31,8 +34,11 @@ public class News{
     @Column(name = "cuerpo")
     private String description;
     
-    @Column(name = "url_imagen")
-    private String url_image;
+    @Column(name = "imagen")
+    private Blob image;
+    
+    @Transient
+    private File file;
     
     @Column(name = "diaInicio")
     private String date_init;
@@ -43,6 +49,9 @@ public class News{
     @Column(name = "autor")
     private String author;
     
+    @Column(name = "milisegundos")
+    private int mills;
+    
     public News(){
         
     }
@@ -52,26 +61,32 @@ public class News{
         this.description = description;
         this.date_init = date_init;
         this.date_fin = date_fin;
-        this.url_image = "";
+        this.image = null;
+        this.file = null;
+        this.mills = 0;
     }
     
-    public News(String title, String description, String author, String date_init, String date_fin, String url_image){
+    public News(String title, String description, String author, String date_init, String date_fin, File image){
         this.title = title;
         this.description = description;
         this.author = author;
         this.date_init = date_init;
         this.date_fin = date_fin;
-        this.url_image = url_image;
+        this.image = (Blob) image;
+        this.file = image;
+        this.mills = 0;
     }
     
-    public News(int id, String title, String description, String author, String date_init, String date_fin, String url_image){
+    public News(int id, String title, String description, String author, String date_init, String date_fin, File image, int mills){
         this.id = id;
         this.title = title;
         this.description = description;
         this.author = author;
         this.date_init = date_init;
         this.date_fin = date_fin;
-        this.url_image = url_image;
+        this.image = (Blob) image;
+        this.file = image;
+        this.mills = mills;
     }
 
     public String getTitle() {
@@ -106,12 +121,20 @@ public class News{
         this.date_fin = date_fin;
     }
 
-    public String getUrl_Image() {
-        return url_image;
+    public Blob getImage() {
+        return image;
     }
 
-    public void setUrl_Image(String url_image) {
-        this.url_image = url_image;
+    public void setImage(Blob image) {
+        this.image = image;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 
     public String getAuthor() {
@@ -120,6 +143,14 @@ public class News{
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public int getMills() {
+        return mills;
+    }
+
+    public void setMills(int mills) {
+        this.mills = mills;
     }
     
     public int getID() {

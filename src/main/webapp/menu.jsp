@@ -77,15 +77,6 @@
                     </form>
                 </div>
                 
-                <!-- ABSENCE BUTTON -->
-                <div class="py-3 col-12">
-                    <form method="POST" action="absence.jsp">
-                        <div class="col-4 mx-auto d-grid gap-2">
-                            <input type="submit" value="Ausencias" class="btn btn-primary">
-                        </div>
-                    </form>
-                </div>
-                
                 <!-- LOG BUTTON -->
                 <%if(rol == 1){%>
                 <div class="py-3 col-12">

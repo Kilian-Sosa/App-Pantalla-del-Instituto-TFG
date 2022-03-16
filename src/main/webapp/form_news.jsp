@@ -1,3 +1,7 @@
+<%@page import="controller.ControlLogManager"%>
+<%@page import="controller.ControlUsersManager"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.io.File"%>
 <%@page import="controller.ControlNewsManager"%>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -20,23 +24,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-        <script type="text/javascript" src="js/jquery.plugin.js"></script> 
-        <script type="text/javascript" src="js/jquery.maxLength.min.js"></script>
-        <script type="text/javascript">
-            $('#defaultLength').maxlength(); 
- 
-            $('#removeLength').click(function() { 
-                var destroy = $(this).text() === 'Remove'; 
-                $(this).text(destroy ? 'Re-attach' : 'Remove'); 
-                $('#defaultLength').maxlength(destroy ? 'destroy' : {}); 
-            }); 
-
-            $('#disableLength').click(function() { 
-                var enable = $(this).text() === 'Enable'; 
-                $(this).text(enable ? 'Disable' : 'Enable'); 
-                $('#defaultLength').maxlength(enable ? 'enable' : 'disable'); 
-            });
-        </script>
     </head>
     
     <body>
@@ -67,20 +54,22 @@
                     String description = "";
                     String dateInit = "";
                     String dateFin = "";
-                    String url_Image = "";
+                    String path = "";
                     String author = session.getAttribute("email").toString();
-
+                    int mills = 30000;
+                    String millsS = "";
+                    
                     if(action == null) action = "insert";
                     String btnValue = "Insertar";
                     String actionValue = "Add";
-                    ControlNewsManager manager = new ControlNewsManager();
+                    ControlNewsManager managerN = new ControlNewsManager();
+                    ControlLogManager managerL = new ControlLogManager();
 
                     if(action.compareTo("insert") == 0){%>
                         <div class="col-12">
                             <p class="fs-1 text-center font-monospace">Añadir Noticia</p>
                         </div>
-                    <%}
-                    else if(action.compareTo("edit") == 0){
+                    <%}else if(action.compareTo("edit") == 0){
                         btnValue = "Editar";
                         actionValue = "Edit";
 
@@ -92,8 +81,7 @@
 
                         dateInit = request.getParameter("dateinit");
                         dateFin = request.getParameter("datefin");
-                        if(request.getParameter("url_image") != null) url_Image = request.getParameter("url_image");
-                        else url_Image = "";
+                        if(request.getParameter("path") != null) path = request.getParameter("path");
                     %>
                         <div class="col-12">
                             <p class="fs-1 text-center font-monospace">Editar Noticia</p>
@@ -107,28 +95,35 @@
                         if(request.getParameter("description") != null) description = request.getParameter("description");
                         else description = "";
 
+                        mills = Integer.parseInt(request.getParameter("mills"));
                         dateInit = request.getParameter("dateinit");
                         dateFin = request.getParameter("datefin");
-                        if(request.getParameter("url_image") != null) url_Image = request.getParameter("url_image");
-                        else url_Image = "";
+                        if(request.getParameter("path") != null) path = request.getParameter("path");
 
                         if(title == null || title.isBlank()){%>
                             <div class="alert alert-danger" role="alert">El título no puede estar en blanco</div>
                         <%}else if(dateInit == null || dateFin == null || dateInit.isBlank() || dateFin.isBlank()){%>
                             <div class="alert alert-danger" role="alert">Escoja las fechas</div>
                         <%}else{
-                            manager.setTitle(title);
-                            manager.setDescription(description);
-                            manager.setDateInit(dateInit);
-                            manager.setDateFin(dateFin);
-                            manager.setUrl_Image(url_Image);
-                            manager.setAuthor(author);
+                            managerN.setMills(mills);
+                            managerN.setTitle(title);
+                            managerN.setDescription(description);
+                            managerN.setDateInit(dateInit);
+                            managerN.setDateFin(dateFin);
+                            managerN.setFile(new File(path));
+                            managerN.setAuthor(author);
 
-                            int cont = manager.execute(1);
+                            int cont = managerN.execute(1);
 
                             if(cont != 1){%>
                                 <div class="alert alert-danger" role="alert">Ha habido un problema al añadir la noticia</div>
                             <%}else{
+                                LocalDate localDate = LocalDate.now();
+                                managerL.setAction("Creado la noticia: " + title);
+                                managerL.setAuthor(session.getAttribute("name").toString());
+                                managerL.setDate(localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear());
+
+                                managerL.execute(1);
                                 session.setAttribute("action", "insert");
                                 response.sendRedirect("news.jsp");
                             } 
@@ -143,31 +138,38 @@
                       <%
                         id = Integer.parseInt(request.getParameter("id"));
                         title = request.getParameter("title");
+                        mills = Integer.parseInt(request.getParameter("mills"));
 
                         if(request.getParameter("description") != null) description = request.getParameter("description");
                         else description = "";
 
                         dateInit = request.getParameter("dateinit");
                         dateFin = request.getParameter("datefin");
-                        if(request.getParameter("url_image") != null) url_Image = request.getParameter("url_image");
-                        else url_Image = "";
+                        if(request.getParameter("path") != null) path = request.getParameter("path");
 
                         if(dateInit == null || dateFin == null || dateInit.isBlank() || dateFin.isBlank()){%>
                             <div class="alert alert-danger" role="alert">Escoja las fechas</div>
                         <%}else{
-                            manager.setID(id);
-                            manager.setTitle(title);
-                            manager.setDescription(description);
-                            manager.setDateInit(dateInit);
-                            manager.setDateFin(dateFin);
-                            manager.setUrl_Image(url_Image);
-                            manager.setAuthor(author);
+                            managerN.setID(id);
+                            managerN.setMills(mills);
+                            managerN.setTitle(title);
+                            managerN.setDescription(description);
+                            managerN.setDateInit(dateInit);
+                            managerN.setDateFin(dateFin);
+                            managerN.setFile(new File(path));
+                            managerN.setAuthor(author);
 
-                            int cont = manager.execute(2);
+                            int cont = managerN.execute(2);
 
                             if(cont != 1){%>
                                 <div class="alert alert-danger" role="alert">Ha habido un problema al editar la noticia</div>
                             <%}else{
+                                LocalDate localDate = LocalDate.now();
+                                managerL.setAction("Modificado la noticia: " + title);
+                                managerL.setAuthor(session.getAttribute("name").toString());
+                                managerL.setDate(localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear());
+
+                                managerL.execute(1);
                                 session.setAttribute("action", "edit");
                                 response.sendRedirect("news.jsp");
                             } 
@@ -187,13 +189,24 @@
                     </div>
                     
                     <!-- DESCRIPTION -->
-                    <div class="py-3 col-8 mx-auto">
-                        <textarea id="maxLength" rows="6" type="text" class="form-control fs-5 text-center text-justify is-maxlength" name="description" placeholder="Cuerpo (Máximo 400 caractéres)"><%= description%></textarea>
+                    <div class="box py-3 col-8 mx-auto">
+                        <textarea id="txtArea" maxlength="255" rows="4" type="text" class="form-control fs-5 text-center text-justify is-maxlength" name="description" placeholder="Cuerpo"><%= description%></textarea>
+                        <div id="counter" class="float-end">0/255</div>
                     </div>
-                    
+                    <script>
+                        const message = document.getElementById('txtArea');
+                        const counter = document.getElementById('counter');
+
+                        message.addEventListener('input', function(e) {
+                            const target = e.target;
+                            const longitudMax = target.getAttribute('maxlength');
+                            const longitudAct = target.value.length;
+                            counter.innerHTML = `${longitudAct}/${longitudMax}`;
+                        });
+                    </script>
                     <!-- IMAGE -->
                     <div class="py-3 col-8 mx-auto">
-                        <input class="form-control" type="file" id="formFile" name="url_image" value="<%= url_Image%>">
+                        <input class="form-control" type="file" id="formFile" name="path" value="<%= path%>">
                     </div>
                     
                     <div class="row justify-content-center">
@@ -224,12 +237,52 @@
 
                     <script type="text/javascript">
                         $(function() {
-                            
                             $('#datepicker').datepicker({format: 'dd/mm/yyyy', startDate: '-0d', todayHighlight: 'true', weekStart:'1'});
                             $('#datepicker2').datepicker({format: 'dd/mm/yyyy', startDate: '+1d', todayHighlight: 'true', weekStart:'1'});
                         });
                     </script>
 
+                    <!-- TIME -->
+                    <div class="py-3 col-8 mx-auto">
+                        <label for="mills" class="form-label">Tiempo en Pantalla</label>
+                        <select class="form-select" name="mills" aria-label="Default select example">
+                            <%switch(mills){
+                                case 30000: millsS = "30 segundos";
+                                            break;
+                                case 40000: millsS = "40 segundos";
+                                            break;
+                                case 50000: millsS = "50 segundos";
+                                            break;
+                                case 60000: millsS = "1 minuto";
+                                            break;
+                                case 70000: millsS = "1 minuto y 10 segundos";
+                                            break;
+                                case 80000: millsS = "1 minuto y 20 segundos";
+                                            break;
+                                case 90000: millsS = "1 minuto y 30 segundos";
+                                            break;
+                                case 100000: millsS = "1 minuto y 40 segundos";
+                                            break;
+                                case 110000: millsS = "1 minuto y 50 segundos";
+                                            break;
+                                case 120000: millsS = "2 minutos";
+                                            break;
+                            }%> 
+                            
+                            <option selected value="<%= mills%>"><%= millsS%></option>
+                            <%if(mills != 30000)%> <option value="30000">30 segundos</option>
+                            <%if(mills != 40000)%> <option value="40000">40 segundos</option>
+                            <%if(mills != 50000)%> <option value="50000">50 segundos</option>
+                            <%if(mills != 60000)%> <option value="60000">1 minuto</option>
+                            <%if(mills != 70000)%> <option value="70000">1 minuto y 10 segundos</option>
+                            <%if(mills != 80000)%> <option value="80000">1 minuto y 20 segundos</option>
+                            <%if(mills != 90000)%> <option value="90000">1 minuto y 30 segundos</option>
+                            <%if(mills != 100000)%> <option value="100000">1 minuto y 40 segundos</option>
+                            <%if(mills != 110000)%> <option value="110000">1 minuto y 50 segundos</option>
+                            <%if(mills != 120000)%> <option value="120000">2 minutos</option> 
+                        </select>
+                    </div>
+                        
                     <!-- BUTTON -->
                     <div class="py-3 col-3 mx-auto d-grid gap-2">
                         <input type="hidden" name="action" value="<%= actionValue%>">

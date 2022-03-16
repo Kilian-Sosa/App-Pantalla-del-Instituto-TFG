@@ -1,3 +1,5 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="controller.ControlLogManager"%>
 <%@page import="controller.ControlUsersManager"%>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -53,8 +55,9 @@
                     if(action == null) action = "insert";
                     String btnValue = "Insertar";
                     String actionValue = "Add";
-                    ControlUsersManager manager = new ControlUsersManager();
-
+                    ControlUsersManager managerU = new ControlUsersManager();
+                    ControlLogManager managerL = new ControlLogManager();
+                    
                     if(action.compareTo("insert") == 0){%>
                         <div class="col-12">
                             <p class="fs-1 text-center font-monospace">Añadir Usuario</p>
@@ -91,18 +94,24 @@
                         <%}else if(!email.contains("@")){%>
                             <div class="alert alert-danger" role="alert">El correo debe contener un @</div>
                         <%}else{
-                            manager.setName(name);
-                            manager.setEmail(email);
-                            manager.setPassword(password);
-                            manager.setRol(rol);
+                            managerU.setName(name);
+                            managerU.setEmail(email);
+                            managerU.setPassword(password);
+                            managerU.setRol(rol);
 
-                            int cont = manager.execute(2);
+                            int cont = managerU.execute(2);
 
                             if(cont != 1){%>
                                 <div class="alert alert-danger" role="alert">Ya existe dicho correo</div>
                             <%}else{
+                                LocalDate localDate = LocalDate.now();
+                                managerL.setAction("Añadido el usuario: " + name + ", " + email);
+                                managerL.setAuthor(session.getAttribute("name").toString());
+                                managerL.setDate(localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear());
+
+                                managerL.execute(1);
                                 session.setAttribute("action", "insert");
-                                response.sendRedirect("http://localhost:8080/Web/users.jsp");
+                                response.sendRedirect("users.jsp");
                             } 
                         }
                     }else if(action.compareTo("Edit") == 0){
@@ -130,17 +139,23 @@
                         <%}else if(id == 1 && rol != 1){%>
                             <div class="alert alert-danger" role="alert">Este usuario no puede ser degradado a Profesor</div>
                         <%}else{
-                            manager.setID(id);
-                            manager.setName(name);
-                            manager.setEmail(email);
-                            manager.setPassword(password);
-                            manager.setRol(rol);
+                            managerU.setID(id);
+                            managerU.setName(name);
+                            managerU.setEmail(email);
+                            managerU.setPassword(password);
+                            managerU.setRol(rol);
 
-                            int cont = manager.execute(3);
+                            int cont = managerU.execute(3);
 
                             if(cont != 1){%>
                                 <div class="alert alert-danger" role="alert">Ya existe dicho correo</div>
                             <%}else{
+                                LocalDate localDate = LocalDate.now();
+                                managerL.setAction("Modificado el usuario: " + name + ", " + email);
+                                managerL.setAuthor(session.getAttribute("name").toString());
+                                managerL.setDate(localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear());
+
+                                managerL.execute(1);
                                 session.setAttribute("action", "edit");
                                 response.sendRedirect("users.jsp");
                             } 

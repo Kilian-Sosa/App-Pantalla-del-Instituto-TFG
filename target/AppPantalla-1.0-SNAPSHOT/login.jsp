@@ -23,6 +23,9 @@
             if(session.getAttribute("flag") != null){
                 session.invalidate();%>
                 <div class="alert alert-danger" role="alert">Antes de acceder al resto de funciones, debe iniciar sesión</div>
+                <%}else if(session.getAttribute("flag2") != null){
+                session.invalidate();%>
+                <div class="alert alert-danger" role="alert">Has eliminado tu cuenta correctamente</div>
           <%}else if(session.getAttribute("email") != null)
                 session.invalidate();
             else{
