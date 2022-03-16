@@ -51,7 +51,7 @@
                                 session.setAttribute("password", password);
                                 session.setAttribute("name", manager.getName());
                                 session.setAttribute("rol", manager.getRol());
-                                response.sendRedirect("http://localhost:8080/Web/menu.jsp");
+                                response.sendRedirect("menu.jsp");
                             }
                         }
                     }
@@ -64,12 +64,12 @@
                 <div class="py-3">
                     <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
                 </div>
-                <div class="py-3">
+                <div class="py-2">
                     <h1 class="fs-1 font-monospace text-center">Iniciar Sesión</h1>
                 </div>
             </div>
             
-            <div class="row py-3 col-10 justify-content-evenly mx-auto recuadro-login">
+            <div class="row py-4 col-10 justify-content-evenly mx-auto recuadro-login">
                 <div class="col-2">
                     <img src="https://images.genial.ly/genially/layouts/9dfa6849-4c71-4fca-83c6-5fa401b169a5.png" width="300" height="300">
                 </div>

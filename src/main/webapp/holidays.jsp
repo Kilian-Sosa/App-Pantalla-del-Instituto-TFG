@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="POJOs.News"%>
 <%@page import="controller.ControlNewsManager"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -18,18 +18,22 @@
     
     <body>
         <!-- JAVA -->
-    <% 
-        int rol = -1;
-        String url = "";
-        if(session.getAttribute("rol") == null || rol == 0){
-            session.setAttribute("flag", false);
-            response.sendRedirect("menu.jsp");
-        }
-        rol = Integer.parseInt(session.getAttribute("rol").toString());
-        //url = "https://avatars.dicebear.com/api/initials/" + session.getAttribute("email").toString() + ".svg?size=70&r=50";
-        url = "https://avatars.dicebear.com/api/identicon/" + session.getAttribute("email").toString() + ".svg?b=white&size=70&r=50";
-    
-    %>
+        <% 
+            if(session.getAttribute("email") == null){
+                session.setAttribute("flag", false);
+                response.sendRedirect("login.jsp");
+            } 
+
+            int rol = -1;
+            String url = "";
+            if(session.getAttribute("rol") == null || rol == 0){
+                session.setAttribute("flag", false);
+                response.sendRedirect("menu.jsp");
+            }
+            rol = Integer.parseInt(session.getAttribute("rol").toString());
+            //url = "https://avatars.dicebear.com/api/initials/" + session.getAttribute("email").toString() + ".svg?size=70&r=50";
+            url = "https://avatars.dicebear.com/api/identicon/" + session.getAttribute("email").toString() + ".svg?b=white&size=70&r=50";
+        %>
         <div class="container-fluid">
             <!-- HEADER -->
             <div class="row py-3">
@@ -42,7 +46,7 @@
                 </div>
 
                 <div class="col-12">
-                    <p class="fs-1 text-center font-monospace">DÃ­as Festivos</p>
+                    <p class="fs-1 text-center font-monospace">Días Festivos</p>
                 </div>
             </div>
         
@@ -62,11 +66,11 @@
                         <tbody>                         
                             <tr>
                                 <th>0</th>
-                                <td>DÃ­a de Juan</td>
+                                <td>Día de Juan</td>
                                 <td>11/03/2022</td>
                                 <td>11/03/2022</td>
                                 <td>
-                                    <!-- BOTÃ“N EDITAR -->
+                                    <!-- BOTÓN EDITAR -->
                                     <form method="GET" action="form_festivos.jsp">
                                         <div class="d-grid gap-2">
                                             <input type="hidden" name="action" value="edit">
@@ -75,7 +79,7 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <!-- BOTÃ“N BORRAR -->
+                                    <!-- BOTÓN BORRAR -->
                                     <form method="GET" action="festivos.jsp">
                                         <div class="d-grid gap-2">
                                             <input type="hidden" name="accion" value="elim">
@@ -90,16 +94,16 @@
             </div>
             
             <div class="row py-5 col-11 mx-auto justify-content-evenly">
-                <!-- BOTÃ“N VOLVER -->
+                <!-- BOTÓN VOLVER -->
                 <div class="col-3">
                     <form method="GET" action="menu.jsp">
                         <div class="d-grid gap-2">
-                            <input type="submit" value="Volver AtrÃ¡s" class="btn btn-secondary">
+                            <input type="submit" value="Volver Atrás" class="btn btn-secondary">
                         </div>
                     </form>
                 </div>
 
-                <!-- BOTÃ“N INSERTAR -->
+                <!-- BOTÓN INSERTAR -->
                 <div class="col-9">
                     <form method="GET" action="form_festivos.jsp">
                         <div class="d-grid gap-2">

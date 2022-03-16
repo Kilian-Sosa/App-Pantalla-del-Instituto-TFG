@@ -1,9 +1,10 @@
 controller\ControlNewsManager.class
 model\format\Formatter.class
+model\view\ControlUsers.class
 POJOs\User.class
 model\view\ControlNews.class
+controller\ControlUsersManager.class
 POJOs\Email.class
 POJOs\News.class
-controller\LogInManager.class
 model\view\LogIn.class
 controller\AbsenceManager.class

@@ -1,5 +1,5 @@
 <%@page import="controller.ControlNewsManager"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -25,6 +25,11 @@
     <body>
         <!-- JAVA -->
         <% 
+            if(session.getAttribute("email") == null){
+                session.setAttribute("flag", false);
+                response.sendRedirect("login.jsp");
+            } 
+            
             int rol = -1;
             String url = "";
             if(session.getAttribute("rol") == null || rol == 0){
@@ -50,7 +55,7 @@
             String action = request.getParameter("action");            
             if(action != null){
                 if(action.compareTo("insert") == 0) { action = "Insertar"; %>
-                    <p class="fs-1 text-center font-monospace">AÃ±adir Festivo</p>
+                    <p class="fs-1 text-center font-monospace">Añadir Festivo</p>
                 <% } else if(action.compareTo("edit") == 0) { action = "Editar"; %>
                     <p class="fs-1 text-center font-monospace">Editar Festivo</p>
                 <% }
@@ -101,10 +106,10 @@
                         });
                     </script>
 
-                    <!-- BOTON AÃ‘ADIR -->
+                    <!-- BOTON AÑADIR -->
                     <div class="py-3 col-3 mx-auto d-grid gap-2">
                         <!-- <input type="hiden" name="email" value=" //email%>"> -->
-                        <input type="hidden" name="action" value="AÃ±adir">
+                        <input type="hidden" name="action" value="Añadir">
                         <input type="submit" value="<%= action%>" class="btn btn-primary">
                     </div>    
                 </form>

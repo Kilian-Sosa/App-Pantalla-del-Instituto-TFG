@@ -86,3 +86,14 @@ body {
   text-justify: inter-word;
 }
 
+.recuadro-noticia {
+    height: 95vh;
+    padding: 10px; 
+    border: 2px solid #d8d8d8;
+    border-radius: 8px;
+    background-color: rgba(240, 240, 240, 0.5);
+}
+
+.recuadro-imagen {
+    height: 83vh;
+}

@@ -44,10 +44,18 @@ public class ControlUsersManager{
         this.id = id;
     }
 
+    public void setRol(int rol){
+        this.rol = rol;
+    }
+    
     public int getRol() {
         return rol;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public String getName() {
         return name;
     }
@@ -70,8 +78,16 @@ public class ControlUsersManager{
      *   @returns 1 if it worked or -1 if it did not work
      */
     public int execute(int num){
-        Email emailObject = new Email(email, password);
-
+        ControlUsers controlUsers = new ControlUsers(null);
+        
+        if(num == 1){
+            list = controlUsers.getUsers(); 
+            if(list == null || list.isEmpty()) return -1;
+            return 1;
+        }
+        Email emailObject;
+        if(email != null) emailObject = new Email(email, password);
+        else emailObject = new Email("", "");
         if(num == 0){
             LogIn login = new LogIn(emailObject);
             if(login.isInserted())
@@ -86,12 +102,9 @@ public class ControlUsersManager{
                 }
             System.out.println("El correo no figura en la base de datos");
         }else{
-            user = new User(name, emailObject, rol);
-            ControlUsers controlUsers = new ControlUsers(user);
+            user = new User(id, name, emailObject, rol);
+            controlUsers = new ControlUsers(user);
             switch(num){
-                case 1: list = controlUsers.getUsers(); 
-                        if(list == null || list.isEmpty()) return -1;
-                        return 1;
                 case 2: if(controlUsers.insertUser()) return 1;
                         break;
                 case 3: if(controlUsers.modifyUser()) return 1;

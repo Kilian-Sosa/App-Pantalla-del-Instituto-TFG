@@ -53,6 +53,14 @@ public class User{
         this.password = email.getPassword();
         this.rol = rol;
     }
+    
+    public User(int id, String name, Email email, int rol){
+        this.id = id;
+        this.name = name;
+        this.emailS = email.getEmail();
+        this.password = email.getPassword();
+        this.rol = rol;
+    }
 
     public String getName() {
         return name;
@@ -83,6 +91,10 @@ public class User{
         this.rol = rol;
     }
 
+    public String getRolS(){
+        if(rol == 0) return "Profesor";
+        return "Administrador";
+    }
     public int getID() {
         return id;
     }

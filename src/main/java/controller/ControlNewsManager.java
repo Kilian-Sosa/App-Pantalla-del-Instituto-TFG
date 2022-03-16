@@ -15,8 +15,8 @@ import model.view.ControlNews;
  */
 public class ControlNewsManager {
     private News news;
+    private int id;
     private String title = "";
-    private String newTitle = "";
     private String description = "";
     private String url_image = "";
     private String date_init = "";
@@ -64,12 +64,12 @@ public class ControlNewsManager {
         this.url_image = url_image;
     }
 
-    public String getNewTitle() {
-        return newTitle;
+    public int getID() {
+        return id;
     }
 
-    public void setNewTitle(String newTitle) {
-        this.newTitle = newTitle;
+    public void setID(int id) {
+        this.id = id;
     }
 
     public ArrayList<News> getList() {
@@ -98,10 +98,8 @@ public class ControlNewsManager {
      *   @returns 1 if it worked or -1 if it did not work
      */
     public int execute(int num){
-        news = new News(title, description, author, date_init, date_fin, url_image);
-        if(num == 2) news.setTitle(newTitle);
+        news = new News(id, title, description, author, date_init, date_fin, url_image);
         ControlNews controlNews = new ControlNews(news);
-           
         if(num == 0) { 
             list = controlNews.getNews(); 
             if(list == null || list.isEmpty()) return -1;

@@ -127,8 +127,10 @@ public class ControlUsers {
             session = factory.openSession();
             session.beginTransaction();
 
+            System.out.println(user.getID());
             User userDB = (User) session.get(User.class, user.getID());
 
+            if(userDB == null) System.out.println("joder");
             userDB.setEmail(new Email(user.getEmail().getEmail(), user.getPassword()));
             userDB.setName(user.getName());
             userDB.setRol(user.getRol());
@@ -155,7 +157,7 @@ public class ControlUsers {
                 session = factory.openSession();
                 session.beginTransaction();
 
-                String hql = "DELETE from News "  + 
+                String hql = "DELETE from User "  + 
                  "WHERE id = '" + user.getID() + "'";
                 if(session.createQuery(hql).executeUpdate() == 0) throw new RollbackException();
                 return true;

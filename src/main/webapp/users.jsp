@@ -2,7 +2,7 @@
 <%@page import="POJOs.Email"%>
 <%@page import="controller.ControlUsersManager"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,42 +20,49 @@
     <body>
         <!-- JAVA -->
         <%
+            if(session.getAttribute("email") == null){
+                session.setAttribute("flag", false);
+                response.sendRedirect("login.jsp");
+            } 
+            
             int rol = -1;
             String url = "";
+            rol = Integer.parseInt(session.getAttribute("rol").toString());
             if(session.getAttribute("rol") == null || rol == 0){
                 session.setAttribute("flag", false);
                 response.sendRedirect("menu.jsp");
             }
-            rol = Integer.parseInt(session.getAttribute("rol").toString());
             //url = "https://avatars.dicebear.com/api/initials/" + session.getAttribute("email").toString() + ".svg?size=70&r=50";
             url = "https://avatars.dicebear.com/api/identicon/" + session.getAttribute("email").toString() + ".svg?b=white&size=70&r=50";
             
-            
-            String action = request.getParameter("action");
-            String actionA = "" + session.getAttribute("action");
+            String action = "", actionA = "";
+            if(request.getParameter("action") != null) action = request.getParameter("action");
+            if(session.getAttribute("action") != null) actionA = session.getAttribute("action").toString();
             int id = 0;
             
             ControlUsersManager manager = new ControlUsersManager();
             
-            if(action != null || actionA != null){
-                if(action == null) action = "";
-                
-                id = Integer.parseInt(request.getParameter("id"));
+            if(!action.isBlank() || !actionA.isBlank()){
+                if(request.getParameter("id") != null) id = Integer.parseInt(request.getParameter("id"));
                 if(action.compareTo("delete") == 0){
-                    manager.setID(id);
-                            
-                    int cont = manager.execute(4);
-                    if(cont != 1){%>
-                        <div class="alert alert-danger" role="alert">Ha habido un error al eliminar la noticia</div>
-                    <%}else{%>
-                        <div class="alert alert-success" role="alert">Se ha eliminado la noticia correctamente</div>
-                    <%} 
+                    if(id == 1){%>
+                        <div class="alert alert-danger" role="alert">No se puede borrar este administrador</div>
+                    <%}else{    
+                        manager.setID(id);
+
+                        int cont = manager.execute(4);
+                        if(cont != 1){%>
+                            <div class="alert alert-danger" role="alert">Ha habido un error al eliminar el usuario</div>
+                        <%}else{%>
+                            <div class="alert alert-success" role="alert">Se ha eliminado el usuario correctamente</div>
+                        <%} 
+                    }        
                 }else{
                     session.removeAttribute("action");
                     if(actionA.compareTo("edit") == 0){%>
-                        <div class="alert alert-success" role="alert">Se ha modificado correctamente la noticia</div>  
+                        <div class="alert alert-success" role="alert">Se ha modificado correctamente el usuario</div>  
                     <%}else if(actionA.compareTo("insert") == 0){%>
-                        <div class="alert alert-success" role="alert">Se ha insertado la noticia correctamente</div>
+                        <div class="alert alert-success" role="alert">Se ha insertado el usuario correctamente</div>
                     <%}   
                 }
             }    
@@ -66,11 +73,11 @@
         <div class="container-fluid">
             <!-- HEADER -->
             <div class="row py-3">
-                <div class="py-2 col-12">
+                <div class="col-12">
                     <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
                     <div class="float-end col-2 me-4">
                         <img class="pt-5 mx-auto d-block" src="<%= url%>">
-                        <p class="fs-5 py-3 font-monospace text-center"><%= session.getAttribute("name")%></p>
+                        <p class="fs-5 font-monospace text-center"><%= session.getAttribute("name")%></p>
                     </div>
                 </div>
                 
@@ -85,11 +92,11 @@
                     <table class="table table-striped align-middle">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Correo</th>
-                                <th>Rol</th>
-                                <th>Ausencia</th>
+                                <th><a href="users.jsp">ID</a></th>
+                                <th><a href="users.jsp">Nombre</a></th>
+                                <th><a href="users.jsp">Correo</a></th>
+                                <th><a href="users.jsp">Rol</a></th>
+                                <!-- <th><a href="users.jsp">Ausencia</a></th> -->
                                 <th></th>
                             </tr>
                         </thead>
@@ -102,19 +109,20 @@
                                     <td><%=user.getID()%></td>
                                     <td><%=user.getName()%></td>
                                     <td><%=user.getEmail().getEmail()%></td>
-                                    <td><%=user.getRol()%></td>
-                                    <td><!-- %user.getAbscense()%> --></td>
+                                    <td><%= user.getRolS()%></td>
+                                    <!-- user.getAbscense()%></td> -->
                                     <td>
                                         <!-- EDIT BUTTON -->
                                         <form method="POST" action="form_users.jsp">
                                             <div class="d-grid gap-2">
                                                 <input type="hidden" name="action" value="edit">
-                                                <input name="url_image" type="hidden" value="<%=user.getID()%>">
-                                                <input name="title" type="hidden" value=""<%=user.getName()%>">
-                                                <input name="description" type="hidden" value="<%=user.getEmail().getEmail()%>">
-                                                <input name="author" type="hidden" value="<%=user.getRol()%>">
-                                                <!-- <input name="dateInit" type="hidden" value="%user.getAbscense()%>"> -->
-                                                <input type="submit" value="Editar" class="btn btn-warning">
+                                                <input name="id" type="hidden" value="<%=user.getID()%>">
+                                                <input name="name" type="hidden" value="<%=user.getName()%>">
+                                                <input name="email" type="hidden" value="<%=user.getEmail().getEmail()%>">
+                                                <input name="password" type="hidden" value="<%=user.getEmail().getPassword()%>">
+                                                <input name="rol" type="hidden" value="<%=user.getRol()%>">
+                                                <!-- <input name="absence" type="hidden" value="%user.getAbscense()%>"> -->
+                                                <input type="submit" value="Editar" class="btn btn-primary">
                                             </div>
                                         </form>
                                     </td>
@@ -122,9 +130,9 @@
                                         <!-- DELETE BUTTON -->
                                         <form method="POST" action="users.jsp">
                                             <div class="d-grid gap-2">
-                                                <input type="hidden" name="accion" value="delete">
+                                                <input type="hidden" name="action" value="delete">
                                                 <input name="id" type="hidden" value="<%=user.getID()%>">
-                                                <input type="submit" value="Eliminar" class="btn btn-danger">
+                                                <input type="submit" value="Eliminar" class="btn btn-secondary">
                                             </div>
                                         </form>
                                     </td>
@@ -140,14 +148,14 @@
                 <div class="col-3">
                     <form method="POST" action="menu.jsp">
                         <div class="d-grid gap-2">
-                            <input type="submit" value="Volver AtrÃ¡s" class="btn btn-secondary">
+                            <input type="submit" value="Volver Atrás" class="btn btn-secondary">
                         </div>
                     </form>
                 </div>
                 
                 <!-- INSERT BUTTON -->
                 <div class="col-9">
-                    <form method="POST" action="form_usuarios.jsp">
+                    <form method="POST" action="form_users.jsp">
                         <div class="d-grid gap-2">
                             <input type="hidden" name="action" value="insert">
                             <input type="submit" action="insert" value="Insertar" class="btn btn-primary">

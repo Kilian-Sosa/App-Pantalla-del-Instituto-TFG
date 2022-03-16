@@ -1,4 +1,4 @@
-<%@page import="controller.LogInManager"%>
+<%@page import="controller.ControlUsersManager"%>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@
           <%}else if(session.getAttribute("email") != null)
                 session.invalidate();
             else{
-                LogInManager manager = new LogInManager();
+                ControlUsersManager manager = new ControlUsersManager();
 
                 if(action != null){
                     if(action.compareTo("login") == 0){
@@ -40,7 +40,7 @@
                         <%}else{
                             manager.setEmail(email);
                             manager.setPassword(password);
-                            int cont = manager.execute();
+                            int cont = manager.execute(0);
 
                             if(cont == 0){%>
                                 <div class="alert alert-danger" role="alert">El correo no coincide</div>
@@ -51,7 +51,7 @@
                                 session.setAttribute("password", password);
                                 session.setAttribute("name", manager.getName());
                                 session.setAttribute("rol", manager.getRol());
-                                response.sendRedirect("http://localhost:8080/Web/menu.jsp");
+                                response.sendRedirect("menu.jsp");
                             }
                         }
                     }
@@ -59,25 +59,23 @@
             }%>
         
         <div class="container-fluid">
-            
             <!-- LOGO -->
             <div class="row">
                 <div class="py-3">
                     <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
                 </div>
-                <div class="py-3">
+                <div class="py-2">
                     <h1 class="fs-1 font-monospace text-center">Iniciar Sesión</h1>
                 </div>
             </div>
             
-            <div class="row py-3 col-10 justify-content-evenly mx-auto recuadro-login">
+            <div class="row py-4 col-10 justify-content-evenly mx-auto recuadro-login">
                 <div class="col-2">
                     <img src="https://images.genial.ly/genially/layouts/9dfa6849-4c71-4fca-83c6-5fa401b169a5.png" width="300" height="300">
                 </div>
                 
                 <div class="col-8 align-self-center">
                     <!-- FORM -->
-                    <!--<h1 class="fs-1 font-monospace text-center">Iniciar Sesión</h1>-->
                     <div class="row form-group">
                         <form method="POST" action="index.jsp">
                             <div class="col-10 mx-auto my-4">
@@ -97,8 +95,7 @@
                     </div>
                 </div>
             </div> 
-            
         </div> <!-- END CONTAINER -->
-                            
     </body>
 </html>
+

@@ -7,6 +7,7 @@ import javax.persistence.RollbackException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.hql.internal.ast.QuerySyntaxException;
 
 public class ControlNews {
     private News news;
@@ -16,26 +17,6 @@ public class ControlNews {
     public ControlNews(News news){
         this.news = news;
         factory = new Configuration().configure(new File("hibernate.cfg.xml")).addAnnotatedClass(News.class).buildSessionFactory();
-    }
-
-    /*
-     *   Checks if there is any record
-     *
-     *   @returns a boolean depending if the DB has records or not
-     */
-    private boolean hasRecords(){
-        try{
-            session = factory.openSession();
-            session.beginTransaction();
-            ArrayList<News> list = (ArrayList) session.createQuery("from News").getResultList();
-            
-            return !(list == null || list.isEmpty());
-        }catch(RollbackException e){
-            System.out.println("Se ha producido un error al revisar si hay registros: " + e);
-            return false;
-        }finally{
-            session.close();
-        }
     }
     
     /*
@@ -60,30 +41,6 @@ public class ControlNews {
             session.close();
         }
     }
-    
-    /*
-     *   Checks if the record is in the DB
-     *
-     *   @returns a boolean depending if it is already in the DB or not
-     */
-    public boolean isInserted(){
-        try{
-            if(!hasRecords()) return false;
-            session = factory.openSession();
-            session.beginTransaction();
-
-            String hql = "SELECT * from News "  + 
-             "WHERE lower(title) like lower('%" + news.getTitle() + "%')";
-            ArrayList<News> list = (ArrayList) session.createQuery(hql).getResultList();
-
-            return list != null;
-        }catch(RollbackException e){
-            System.out.println("Se ha producido un error al revisar si está insertado: " + e);
-            return false;
-        }finally{
-            session.close();
-        }
-    }
 
     /*
      *   Inserts the news in the DB
@@ -92,7 +49,6 @@ public class ControlNews {
      */
     public boolean insertNews(){
         try{
-            if(isInserted()) return false;
             session = factory.openSession();
             session.beginTransaction();
 
@@ -117,10 +73,9 @@ public class ControlNews {
      */
     public boolean modifyNews(){
         try{
-            if(!isInserted()) return false;
             session = factory.openSession();
             session.beginTransaction();
-
+            
             News newsDB = (News) session.get(News.class, news.getID());
 
             newsDB.setTitle(news.getTitle());
@@ -148,14 +103,13 @@ public class ControlNews {
      */
     public boolean deleteNews(){
         try{
-            if(!isInserted()) return false;
-                session = factory.openSession();
-                session.beginTransaction();
+            session = factory.openSession();
+            session.beginTransaction();
 
-                String hql = "DELETE from News "  + 
-                 "WHERE lower(title) like lower('%" + news.getTitle() + "%')";
-                if(session.createQuery(hql).executeUpdate() == 0) throw new RollbackException();
-                return true;
+            String hql = "DELETE from News "  + 
+             "WHERE lower(title) like lower('%" + news.getTitle() + "%')";
+            if(session.createQuery(hql).executeUpdate() == 0) throw new RollbackException();
+            return true;
         }catch(RollbackException ex){
             System.out.println("Error al eliminar la noticia: "+ ex);
             return false;
