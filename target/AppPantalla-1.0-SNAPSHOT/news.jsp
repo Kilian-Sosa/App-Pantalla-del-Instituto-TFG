@@ -80,10 +80,7 @@
                     <table class="table table-striped align-middle">
                         <thead>
                             <tr>
-                                <th><a href="news.jsp">ID</a></th>
-                                <th><a href="news.jsp">URL</a></th>
                                 <th><a href="news.jsp">Título</a></th>
-                                <th><a href="news.jsp">Cuerpo</a></th>
                                 <th><a href="news.jsp">Autor</a></th>
                                 <th><a href="news.jsp">Dia Inicio</a></th>
                                 <th><a href="news.jsp">Dia Fin</a></th>
@@ -95,10 +92,7 @@
                                 News news = list.get(i);
                             %>
                                 <tr>
-                                    <td><%=news.getID()%></td>
-                                    <td><%=news.getUrl_Image()%></td>
                                     <td><%=news.getTitle()%></td>
-                                    <td><%=news.getDescription()%></td>
                                     <td><%=news.getAuthor()%></td>
                                     <td><%=news.getDate_Init()%></td>
                                     <td><%=news.getDate_Fin()%></td>
@@ -157,7 +151,7 @@
                 
                 <!-- SCREEN BUTTON -->
                 <div class="py-5 col-3">
-                    <form method="POST" action="visualize_news.jsp">
+                    <form method="POST" action="index.jsp">
                         <div class="d-grid gap-2">
                             <input type="submit" value="Modo Pantalla" class="btn btn-primary">
                         </div>

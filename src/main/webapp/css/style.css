@@ -87,7 +87,7 @@ body {
 }
 
 .recuadro-noticia {
-    height: 95vh;
+    height: 100vh;
     padding: 10px; 
     border: 2px solid #d8d8d8;
     border-radius: 8px;
@@ -95,5 +95,5 @@ body {
 }
 
 .recuadro-imagen {
-    height: 83vh;
+    height: 90vh;
 }

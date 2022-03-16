@@ -24,11 +24,11 @@
             }else if(session.getAttribute("flag") != null){
                 session.removeAttribute("flag");%>
                 <div class="alert alert-danger" role="alert">No tiene acceso a esta función</div>
-          <%}
-            rol = Integer.parseInt(session.getAttribute("rol").toString());
-            //url = "https://avatars.dicebear.com/api/initials/" + session.getAttribute("email").toString() + ".svg?size=70&r=50";
-            url = "https://avatars.dicebear.com/api/identicon/" + session.getAttribute("email").toString() + ".svg?b=white&size=70&r=50";
-        %>
+          <%}else{
+                rol = Integer.parseInt(session.getAttribute("rol").toString());
+                //url = "https://avatars.dicebear.com/api/initials/" + session.getAttribute("email").toString() + ".svg?size=70&r=50";
+                url = "https://avatars.dicebear.com/api/identicon/" + session.getAttribute("email").toString() + ".svg?b=white&size=70&r=50";
+            }%>
         
         <div class="container-fluid">
             <!-- HEADER -->
@@ -100,7 +100,7 @@
             
             <!-- LOG OUT BUTTON -->
             <div class="row py-5">
-                <form method="POST" action="index.jsp">
+                <form method="POST" action="login.jsp">
                     <div class="py-2 col-2 mx-auto d-grid gap-2">
                         <input type="submit" value="Cerrar Sesión" class="btn btn-secondary">
                     </div>

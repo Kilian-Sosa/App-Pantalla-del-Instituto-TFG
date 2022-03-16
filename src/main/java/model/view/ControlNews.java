@@ -107,7 +107,7 @@ public class ControlNews {
             session.beginTransaction();
 
             String hql = "DELETE from News "  + 
-             "WHERE lower(title) like lower('%" + news.getTitle() + "%')";
+                 "WHERE id = '" + news.getID() + "'";
             if(session.createQuery(hql).executeUpdate() == 0) throw new RollbackException();
             return true;
         }catch(RollbackException ex){
