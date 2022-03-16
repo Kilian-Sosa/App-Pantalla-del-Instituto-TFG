@@ -92,7 +92,7 @@
                     <table class="table table-striped align-middle">
                         <thead>
                             <tr>
-                                <th><a href="users.jsp">Nombre</a></th>
+                                <td><a href="users.jsp">Nombre</a></th>
                                 <th><a href="users.jsp">Correo</a></th>
                                 <th><a href="users.jsp">Rol</a></th>
                                 <!-- <th><a href="users.jsp">Ausencia</a></th> -->

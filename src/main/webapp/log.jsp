@@ -49,9 +49,26 @@
                 </div>
             </div>
             
-            <!-- LOG -->
-            <div class="row">
-                
+            <!-- TABLE LOG -->
+            <div class="row col-11 mx-auto">
+                <div class="col-12">
+                    <table class="table table-striped align-middle">
+                        <thead>
+                            <tr>
+                                <td><a href="log.jsp">Acción</a></th>
+                                <th><a href="log.jsp">Autor</a></th>
+                                <th><a href="log.jsp">Fecha</a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Acción</td>
+                                <td>Autor</td>
+                                <td>16/03/2022</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             
             <!-- RETURN BUTTON -->

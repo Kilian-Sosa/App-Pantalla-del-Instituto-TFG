@@ -80,7 +80,7 @@
                     <table class="table table-striped align-middle">
                         <thead>
                             <tr>
-                                <th><a href="news.jsp">Título</a></th>
+                                <td><a href="news.jsp">Título</a></th>
                                 <th><a href="news.jsp">Autor</a></th>
                                 <th><a href="news.jsp">Dia Inicio</a></th>
                                 <th><a href="news.jsp">Dia Fin</a></th>

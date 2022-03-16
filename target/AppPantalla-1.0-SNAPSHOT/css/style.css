@@ -73,27 +73,18 @@ body {
     background-color: rgba(240, 240, 240, 0.5);
 }
 
-.recuadro-noticia {
-    font-weight: bold; 
-    padding: 10px; 
-    border: 2px solid #d8d8d8;
-    border-radius: 6px;
-    background-color: rgba(240, 240, 240, 0.5);
-}
-
 .text-justify {
   text-align: justify;
   text-justify: inter-word;
 }
 
 .recuadro-noticia {
-    height: 100vh;
-    padding: 10px; 
+    height: 96vh;
     border: 2px solid #d8d8d8;
-    border-radius: 8px;
+    border-radius: 16px;
     background-color: rgba(240, 240, 240, 0.5);
 }
 
 .recuadro-imagen {
-    height: 90vh;
+    height: 82vh;
 }
