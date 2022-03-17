@@ -70,9 +70,13 @@
                         managerN.execute(0);
                         switch(action){
                             case "title":  list = managerN.getListByOrder("title", order);
+                                          break;
                             case "author":  list = managerN.getListByOrder("author", order);
+                                          break;
                             case "dateInit":  list = managerN.getListByOrder("dateInit", order);
+                                          break;
                             case "dateFin":  list = managerN.getListByOrder("dateFin", order);
+                                          break;
                         }
                     }      
                 }
@@ -82,7 +86,7 @@
             <!-- HEADER -->
             <div class="row py-3">
                 <div class="col-12">
-                    <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
+                    <img class="float-start" src="images/logo.png" width="200" height="150">
                     <div class="float-end col-2 me-4">
                         <img class="pt-5 mx-auto d-block" src="<%=url%>">
                         <p class="fs-5 font-monospace text-center"><%=session.getAttribute("name")%></p>

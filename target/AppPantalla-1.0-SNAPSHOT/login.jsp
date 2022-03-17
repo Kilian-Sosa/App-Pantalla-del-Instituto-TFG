@@ -65,7 +65,7 @@
             <!-- LOGO -->
             <div class="row">
                 <div class="py-3">
-                    <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
+                    <img class="float-start" src="images/logo.png" width="200" height="150">
                 </div>
                 <div class="py-2">
                     <h1 class="fs-1 font-monospace text-center">Iniciar Sesión</h1>

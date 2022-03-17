@@ -37,7 +37,7 @@
                             <div class="carousel-item active" data-bs-interval="<%=list.get(0).getMills()%>">
                                 <img src="<%=transparent%>" class="d-block w-100 recuadro-imagen">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <img src="https://i1.wp.com/www3.gobiernodecanarias.org/medusa/edublog/ieselrincon/wp-content/uploads/sites/137/2019/10/cropped-sin-titulo-4.png?fit=512%2C512&ssl=1" width="100" height="100">
+                                    <img src="images/logo.png" width="100" height="100">
                                     <p class="fs-1 font-monospace"><%=list.get(0).getTitle()%></p>
                                     <p class="fs-5"><%=list.get(0).getDescription()%></p>
                                 </div>
@@ -47,7 +47,7 @@
                                 <div class="carousel-item" data-bs-interval="<%=list.get(i).getMills()%>">
                                     <img src="<%=transparent%>" height="400" class="d-block w-100 recuadro-imagen">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <img src="https://i1.wp.com/www3.gobiernodecanarias.org/medusa/edublog/ieselrincon/wp-content/uploads/sites/137/2019/10/cropped-sin-titulo-4.png?fit=512%2C512&ssl=1" width="100" height="100">
+                                        <img src="images/logo.png" width="100" height="100">
                                         <p class="fs-1 font-monospace"><%=list.get(i).getTitle()%></p>
                                         <p class="fs-5"><%=list.get(i).getDescription()%></p>
                                     </div>
@@ -64,7 +64,7 @@
                             </form>
                         </div>
                     <%}%>
-                    <img class="float-start" src="https://i1.wp.com/www3.gobiernodecanarias.org/medusa/edublog/ieselrincon/wp-content/uploads/sites/137/2019/10/cropped-sin-titulo-4.png?fit=512%2C512&ssl=1" width="100" height="100">
+                    <img class="float-start" src="images/logo.png" width="150" height="150">
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>

@@ -74,6 +74,7 @@ public class ControlUsers {
             session = factory.openSession();
             session.beginTransaction();
             
+            System.out.println(field + " " + order);
             String hql = "from User ORDER BY " + field + " " + order;
             list = (ArrayList)  session.createQuery(hql).getResultList();
 

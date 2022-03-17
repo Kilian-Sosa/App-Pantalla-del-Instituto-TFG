@@ -44,8 +44,11 @@
             if(request.getParameter("action") != null) action = request.getParameter("action");
             switch(action){
                 case "action":  list = manager.getListByOrder("nombre", order);
+                              break;
                 case "author":  list = manager.getListByOrder("correo", order);
+                              break;
                 case "date":  list = manager.getListByOrder("rol", order);
+                              break;
             }
         %>
         
@@ -53,7 +56,7 @@
             <!-- HEADER -->
             <div class="row py-3">
                 <div class="py-2 col-12">
-                    <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
+                    <img class="float-start" src="images/logo.png" width="200" height="150">
                     <div class="float-end col-2 me-4">
                         <img class="pt-5 mx-auto d-block" src="<%= url%>">
                         <p class="fs-5 py-3 font-monospace text-center"><%= session.getAttribute("name")%></p>

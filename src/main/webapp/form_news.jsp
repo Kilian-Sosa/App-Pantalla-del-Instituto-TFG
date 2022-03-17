@@ -41,7 +41,7 @@
             <!-- HEADER -->
             <div class="row py-3">
                 <div class="col-12">
-                    <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
+                    <img class="float-start" src="images/logo.png" width="200" height="150">
                     <div class="float-end col-2 me-4">
                         <img class="pt-5 mx-auto d-block" src="<%= url%>">
                         <p class="fs-5 font-monospace text-center"><%= session.getAttribute("name")%></p>
@@ -189,8 +189,8 @@
                     </div>
                     
                     <!-- DESCRIPTION -->
-                    <div class="box py-3 col-8 mx-auto">
-                        <textarea id="txtArea" maxlength="255" rows="4" type="text" class="form-control fs-5 text-center text-justify is-maxlength" name="description" placeholder="Cuerpo"><%= description%></textarea>
+                    <div class="py-3 col-8 mx-auto">
+                        <textarea id="txtArea" maxlength="255" rows="3" type="text" class="form-control fs-5 text-center text-justify is-maxlength" name="description" placeholder="Cuerpo"><%= description%></textarea>
                         <div id="counter" class="float-end">0/255</div>
                     </div>
                     <script>
@@ -198,10 +198,10 @@
                         const counter = document.getElementById('counter');
 
                         message.addEventListener('input', function(e) {
-                            const target = e.target;
-                            const longitudMax = target.getAttribute('maxlength');
-                            const longitudAct = target.value.length;
-                            counter.innerHTML = `${longitudAct}/${longitudMax}`;
+                            var target = e.target;
+                            var longitudMax = target.getAttribute('maxlength');
+                            var longitudAct = message.value.length;
+                            counter.innerHTML = longitudAct + "/" + longitudMax;
                         });
                     </script>
                     <!-- IMAGE -->

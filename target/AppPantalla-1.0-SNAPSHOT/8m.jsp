@@ -54,17 +54,17 @@
                 <%if(index < 0){%>
                     <div class="col-12">
                         <!-- <img class="float-end" src="http://localhost:8080/project/images/1.png" width="800" height="800"> -->
-                        <img class="mx-auto d-block" src="https://cdn.discordapp.com/attachments/805062115923853332/950684718272245760/274874367_5197310233622873_4714063330912770654_n.jpg"  width="800" height="800">
+                        <img class="mx-auto d-block" src="images/8m1.jpg"  width="800" height="800">
                     </div>
                 <%}else{%>    
                     <div class="py-5 col-6">
                         <!-- <img class="float-start" src="http://localhost:8080/project/images/logo.png" width="200" height="150"> -->
-                        <img class="float-start" src="https://cdn.discordapp.com/attachments/944571344786432021/945247676029616178/logo.png" width="200" height="150">
+                        <img class="float-start" src="images/logo.png" width="200" height="150">
                     </div>
                     
                     <div class="py-5 col-6">
                         <!-- <img class="float-end" src="http://localhost:8080/project/images/2.png" width="200" height="150"> -->
-                        <img class="float-end" src="https://cdn.discordapp.com/attachments/805062115923853332/950515907606741072/imagen_2022-03-07_221033-removebg-preview.png" width="200" height="150">
+                        <img class="float-end" src="images/enclave.png" width="200" height="150">
                     </div>
 
                     <div class="py-3 col-12">
@@ -81,7 +81,7 @@
                         
                     <div class="py-2 col-12">
                         <!-- <img class="float-end" src="http://localhost:8080/project/images/3.png" width="200" height="150"> -->
-                        <img class="float-end" src="https://cdn.discordapp.com/attachments/805062115923853332/950524343077711942/imagen_2022-03-07_224343-removebg-preview.png" width="200" height="150">
+                        <img class="float-end" src="images/8m2.png" width="200" height="150">
                     </div>
                 <%}%>
             </div>
