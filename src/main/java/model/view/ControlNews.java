@@ -84,8 +84,8 @@ public class ControlNews {
 
             for(int i = 0; i < list.size(); i++)
                 if(Integer.parseInt(list.get(i).getDate_Init().substring(6)) <= localDate.getYear() && Integer.parseInt(list.get(i).getDate_Fin().substring(6)) >= localDate.getYear())
-                    if(Integer.parseInt(list.get(i).getDate_Init().substring(3, 4)) <= localDate.getMonthValue() && Integer.parseInt(list.get(i).getDate_Init().substring(3, 4)) >= localDate.getMonthValue())
-                        if(Integer.parseInt(list.get(i).getDate_Init().substring(3, 4)) <= localDate.getDayOfMonth() && Integer.parseInt(list.get(i).getDate_Init().substring(3, 4)) >= localDate.getDayOfMonth())
+                    if(Integer.parseInt(list.get(i).getDate_Init().substring(3, 5)) <= localDate.getMonthValue() && Integer.parseInt(list.get(i).getDate_Init().substring(3, 5)) >= localDate.getMonthValue())
+                        if(Integer.parseInt(list.get(i).getDate_Init().substring(0, 2)) <= localDate.getDayOfMonth() && Integer.parseInt(list.get(i).getDate_Init().substring(0, 2)) >= localDate.getDayOfMonth())
                             list2.add(list.get(i));
             
             return list2;
@@ -139,8 +139,8 @@ public class ControlNews {
             newsDB.setAuthor(news.getAuthor());
             newsDB.setDate_Init(news.getDate_Init());
             newsDB.setDate_Fin(news.getDate_Fin());
-            newsDB.setImage(news.getImage());
-
+            newsDB.setMills(news.getMills());
+                    
             session.update(newsDB);
             session.getTransaction().commit();
             return true;

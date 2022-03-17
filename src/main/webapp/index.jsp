@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Carousel Noticias</title>
+        <title>Noticias - IES El Rincón</title>
 
         <!-- CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -34,20 +34,20 @@
                 <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
                     <%if(!list.isEmpty()){%>
                         <div class="carousel-inner">
-                            <div class="carousel-item active" data-bs-interval="<%=list.get(0).getMills()%>">
+                            <div class="carousel-item active" data-bs-interval="0">
                                 <img src="<%=transparent%>" class="d-block w-100 recuadro-imagen">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <img src="images/logo.png" width="100" height="100">
-                                    <p class="fs-1 font-monospace"><%=list.get(0).getTitle()%></p>
-                                    <p class="fs-5"><%=list.get(0).getDescription()%></p>
+                                    <img src="images/logo.png" width="700" height="500">
+                                    <p class="fs-1 font-monospace">Noticias IES El Rincón</p>
                                 </div>
                             </div>
 
-                            <%for(int i = 1; i < list.size(); i++){%>
+                            <%for(int i = 0; i < list.size(); i++){%>
                                 <div class="carousel-item" data-bs-interval="<%=list.get(i).getMills()%>">
                                     <img src="<%=transparent%>" height="400" class="d-block w-100 recuadro-imagen">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <img src="images/logo.png" width="100" height="100">
+                                        <%String url = "https://picsum.photos/seed/" + list.get(i).getID() + "/700/500";%>
+                                        <img class="py-3" src="<%=url%>">
                                         <p class="fs-1 font-monospace"><%=list.get(i).getTitle()%></p>
                                         <p class="fs-5"><%=list.get(i).getDescription()%></p>
                                     </div>
@@ -64,7 +64,6 @@
                             </form>
                         </div>
                     <%}%>
-                    <img class="float-start" src="images/logo.png" width="150" height="150">
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>

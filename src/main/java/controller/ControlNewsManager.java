@@ -6,7 +6,6 @@
 package controller;
 
 import POJOs.News;
-import java.io.File;
 import java.util.ArrayList;
 import model.view.ControlNews;
 
@@ -19,7 +18,6 @@ public class ControlNewsManager {
     private int id;
     private String title = "";
     private String description = "";
-    private File image;
     private String date_init = "";
     private String date_fin = "";
     private String author = "";
@@ -36,14 +34,6 @@ public class ControlNewsManager {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setFile(File image) {
-        this.image = image;
-    }
-
-    public File getFile() {
-        return image;
     }
 
     public void setDateInit(String date_init) {
@@ -109,7 +99,7 @@ public class ControlNewsManager {
      *   @returns 1 if it worked or -1 if it did not work
      */
     public int execute(int num){
-        news = new News(id, title, description, author, date_init, date_fin, image, mills);
+        news = new News(id, title, description, author, date_init, date_fin, mills);
         ControlNews controlNews = new ControlNews(news);
         if(num == 0) { 
             list = controlNews.getNews(); 

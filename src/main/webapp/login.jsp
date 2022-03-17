@@ -63,7 +63,7 @@
         
         <div class="container-fluid">
             <!-- LOGO -->
-            <div class="row">
+            <div class="row mb-5">
                 <div class="py-3">
                     <img class="float-start" src="images/logo.png" width="200" height="150">
                 </div>
@@ -72,8 +72,8 @@
                 </div>
             </div>
             
-            <div class="row py-4 col-10 justify-content-evenly mx-auto recuadro-login">
-                <div class="col-2">
+            <div class="row py-5 col-10 justify-content-evenly mx-auto recuadro-login">
+                <div class="py-5 col-2">
                     <img src="https://images.genial.ly/genially/layouts/9dfa6849-4c71-4fca-83c6-5fa401b169a5.png" width="300" height="300">
                 </div>
                 

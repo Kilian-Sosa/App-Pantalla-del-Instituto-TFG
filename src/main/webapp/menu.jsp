@@ -32,7 +32,7 @@
         
         <div class="container-fluid">
             <!-- HEADER -->
-            <div class="row py-3">
+            <div class="row py-3  mb-5">
                 <div class="col-12">
                     <img class="float-start" src="images/logo.png" width="200" height="150">
                     <div class="float-end col-2 me-4">
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 
-                <div class="col-12">
+                <div class="col-4 mx-auto border-bottom border-secondary rounded">
                     <p class="fs-1 text-center font-monospace">Menú Principal</p>
                 </div>
             </div>
