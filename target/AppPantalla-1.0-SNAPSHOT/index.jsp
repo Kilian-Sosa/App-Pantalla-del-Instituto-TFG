@@ -46,6 +46,7 @@
         <div class="container-fluid">
             <!-- CAROUSEL -->
             <div class="row recuadro-noticia m-3">
+                <div class="col-12 py-2"></div>
                 <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
                     <%if(LocalDate.now().getMonthValue() == 3){%>
                             <div class="carousel-inner">
@@ -102,9 +103,9 @@
                         if(LocalDate.now().getYear() == 2022)
                             if(LocalDate.now().getDayOfYear() > 59 && LocalDate.now().getDayOfYear() < 94){%>
                                 <div class="carousel-item" data-bs-interval="15000">
-                                    <img src="<%=transparent%>" height="400" class="d-block w-100 recuadro-imagen">
+                                    <img src="<%=transparent%>" height="400" class="d-block w-100 recuadro-imagen-complete">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <img src="images/game_jam_2k22.png" width="600" height="600">
+                                        <img src="images/game_jam_2k22.png" width="600" height="700">
                                     </div>
                                 </div>
                             <%}
@@ -113,7 +114,7 @@
                             <div class="carousel-item" data-bs-interval="<%=list.get(i).getMills()%>">
                                 <img src="<%=transparent%>" height="400" class="d-block w-100 recuadro-imagen">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <%String url = "https://picsum.photos/seed/" + list.get(i).getID() + "/500/500";%>
+                                    <%String url = "https://picsum.photos/seed/" + list.get(i).getID() + "/700/400";%>
                                     <img class="py-5" src="<%=url%>">
                                     <p class="fs-1 font-monospace"><%=list.get(i).getTitle()%></p>
                                     <p class="fs-5"><%=list.get(i).getDescription()%></p>

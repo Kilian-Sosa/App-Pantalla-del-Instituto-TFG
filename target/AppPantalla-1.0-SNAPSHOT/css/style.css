@@ -33,6 +33,10 @@ body {
     height: 82vh;
 }
 
+.recuadro-imagen-complete {
+    height: 90vh;
+}
+
 textarea{
   width: 100%;
   height: 100px;
